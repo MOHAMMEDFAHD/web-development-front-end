@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<!--
+  404.html · the "page not found" page
+  GitHub Pages shows this file automatically whenever someone opens an
+  address that does not exist on the site. Keep it friendly and give the
+  visitor a way back.
+-->
+<html lang="ar" dir="rtl" class="no-js">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- A 404 page should never appear in search results. -->
+  <meta name="robots" content="noindex">
+
+  <!-- <base> makes every relative link on this page start from the site
+       root. Without it, opening /frontend-bootcamp/a/b/c would look for
+       the stylesheet in /a/b/assets/ and the page would load unstyled.
+       If you rename the repository, change this path too. -->
+  <base href="/frontend-bootcamp/">
+
+  <title>الصفحة غير موجودة | معسكر تطوير الواجهات الأمامية</title>
+  <meta name="theme-color" content="#0a0a23">
+  <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/css/style.css">
+
+  <script>
+    (function () {
+      var root = document.documentElement;
+      root.className = root.className.replace('no-js', 'js');
+      try {
+        var saved = localStorage.getItem('feb-theme');
+        var dark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        root.setAttribute('data-theme', saved || (dark ? 'dark' : 'light'));
+      } catch (error) {
+        root.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
+</head>
+
+<body>
+  <main id="main-content" class="page-hero not-found">
+    <div class="container container--narrow not-found__inner">
+      <p class="not-found__code" aria-hidden="true">404</p>
+      <h1>هذه الصفحة غير موجودة</h1>
+      <p class="page-hero__lead">ربما تغيّر الرابط، أو حدث خطأ بسيط في كتابته. لا بأس، يحدث هذا لأفضل المطورين.</p>
+      <p class="hero__actions">
+        <a class="button button--primary" href="index.html">العودة إلى الرئيسية</a>
+        <a class="button button--ghost" href="index.html#lessons">تصفّح الدروس</a>
+      </p>
+    </div>
+  </main>
+</body>
+</html>

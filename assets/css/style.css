@@ -1,0 +1,2679 @@
+/* ==========================================================================
+   Front-End Bootcamp · style.css
+   --------------------------------------------------------------------------
+   One stylesheet for the whole project. It is long, but it is organised
+   like a book, so you can jump to a chapter with your editor's search
+   (search for the number, for example "07.").
+
+     01. Design tokens (colours, spacing, fonts) for light and dark themes
+     02. Modern reset
+     03. Base elements (body, headings, links, code...)
+     04. Layout helpers (container, bands, grids)
+     05. Accessibility helpers (skip link, visually hidden, focus)
+     06. Site header and navigation
+     07. Theme toggle
+     08. Buttons
+     09. Hero and page hero
+     10. Course layout and table of contents
+     11. Lessons
+     12. Content components (callouts, cards, quotes, lists, tags)
+     13. Code blocks
+     14. Tabs
+     15. Tables
+     16. Forms
+     17. Media and embeds
+     18. Semantic diagram, articles, accordion
+     19. Dialogs
+     20. Playground
+     21. Quiz
+     22. Profile card
+     23. About page pieces (stats, cards, timeline, CTA)
+     24. Footer
+     25. Floating UI (back to top, toasts, scroll progress)
+     26. Motion (reveal on scroll)
+     27. Reduced motion
+     28. Print
+
+   A note on direction. This site is right-to-left. Instead of "left" and
+   "right" I use LOGICAL properties: margin-inline-start, padding-inline-end,
+   inset-inline-start and so on. "Inline start" means "where a line of text
+   begins", which is the right side in Arabic and the left side in English.
+   Switch dir="rtl" to dir="ltr" in the HTML and the whole layout flips
+   correctly without touching a single line here.
+   ========================================================================== */
+
+
+/* ==========================================================================
+   01. DESIGN TOKENS
+   Custom properties (CSS variables) hold every colour, size and font we
+   use. Components never hard-code a colour, they ask for a token. That is
+   why the dark theme below is only a list of new values, not a rewrite.
+   The palette is inspired by freeCodeCamp: deep navy, warm yellow, sky blue.
+   ========================================================================== */
+
+:root {
+  /* Colours, light theme (the default) */
+  --color-bg: #f5f6f7;
+  --color-surface: #fff;
+  --color-surface-2: #eeeef0;
+  --color-text: #1b1b32;
+  --color-text-muted: #55556a;
+  --color-heading: #0a0a23;
+  --color-border: #d0d0d5;
+  --color-accent: #f1be32;          /* the famous freeCodeCamp yellow */
+  --color-accent-strong: #c99a1a;
+  --color-on-accent: #0a0a23;       /* text that sits on top of the accent */
+
+  /* Yellow text on a light background is hard to read (2.4:1), so when
+     the accent is used as TEXT we switch to a deep gold that passes the
+     4.5:1 contrast rule. In dark mode the bright yellow is fine. */
+  --color-accent-text: #7a5c00;
+  --color-link: #0b57b4;
+  --color-link-hover: #083f83;
+  --color-info: #0b57b4;
+  --color-success: #1d7a3a;
+  --color-success-soft: #e3f4e8;
+  --color-danger: #b3261e;
+  --color-danger-soft: #fbe9e7;
+  --color-warning: #8a5a00;
+  --color-warning-soft: #fff4d6;
+  --color-code-bg: #0a0a23;
+  --color-code-text: #f5f6f7;
+  --color-highlight: #fff1b8;
+
+  /* Typography. clamp(min, preferred, max) makes text grow smoothly with
+     the screen width instead of jumping at breakpoints. */
+  --font-sans: "IBM Plex Sans Arabic", "Segoe UI", "Tahoma", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "Cascadia Code", "Consolas", monospace;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: clamp(1.25rem, 1.1rem + 0.6vw, 1.5rem);
+  --text-2xl: clamp(1.5rem, 1.25rem + 1vw, 2rem);
+  --text-3xl: clamp(2rem, 1.5rem + 2.2vw, 3.25rem);
+  --leading: 1.8;                   /* Arabic needs a taller line height */
+
+  /* Spacing scale. Using a fixed scale keeps the rhythm consistent. */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4.5rem;
+
+  /* Shape and depth */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-pill: 999px;
+  --shadow-sm: 0 1px 2px rgb(10 10 35 / 8%);
+  --shadow-md: 0 8px 24px rgb(10 10 35 / 10%);
+  --shadow-lg: 0 18px 48px rgb(10 10 35 / 18%);
+
+  /* Layout */
+  --container: 1200px;
+  --container-narrow: 820px;
+  --header-height: 68px;
+
+  /* Motion */
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --duration: 0.25s;
+
+  /* Tells built-in UI (scrollbars, date pickers) which theme to draw. */
+  color-scheme: light;
+}
+
+/* The dark theme. The inline script in the <head> sets data-theme on <html>
+   before the page is drawn, and main.js changes it when you click the
+   toggle. Only the colours change. Every component updates by itself. */
+:root[data-theme="dark"] {
+  --color-bg: #0a0a23;
+  --color-surface: #1b1b32;
+  --color-surface-2: #2a2a40;
+  --color-text: #e8e8ee;
+  --color-text-muted: #a9a9bc;
+  --color-heading: #fff;
+  --color-border: #3b3b4f;
+  --color-accent: #f1be32;
+  --color-accent-strong: #ffd76a;
+  --color-on-accent: #0a0a23;
+  --color-accent-text: #f1be32;
+  --color-link: #99c9ff;
+  --color-link-hover: #cfe5ff;
+  --color-info: #99c9ff;
+  --color-success: #acd157;
+  --color-success-soft: #1f2e14;
+  --color-danger: #ffadad;
+  --color-danger-soft: #3a1a1f;
+  --color-warning: #ffd76a;
+  --color-warning-soft: #3a3014;
+  --color-code-bg: #050514;
+  --color-code-text: #e8e8ee;
+  --color-highlight: #5c4a10;
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 40%);
+  --shadow-md: 0 8px 24px rgb(0 0 0 / 35%);
+  --shadow-lg: 0 18px 48px rgb(0 0 0 / 50%);
+
+  color-scheme: dark;
+}
+
+
+/* ==========================================================================
+   02. MODERN RESET
+   Browsers ship with slightly different default styles. A reset makes
+   them behave the same so we start from a clean, predictable base.
+   ========================================================================== */
+
+/* border-box means width includes padding and border. Far easier to
+   reason about than the old content-box default. */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+html {
+  /* Stops iPhones from enlarging text when you rotate the phone. */
+  text-size-adjust: 100%;
+
+  /* Smooth scrolling for #anchor links, and room for the sticky header so
+     the section title is not hidden underneath it after the jump. */
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--header-height) + var(--space-4));
+}
+
+/* Media should never overflow its container. */
+img,
+picture,
+video,
+canvas,
+svg,
+iframe {
+  display: block;
+  max-width: 100%;
+}
+
+img,
+video {
+  height: auto;
+}
+
+/* Form controls do not inherit fonts by default, which surprises everyone. */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+/* Long words and URLs should wrap instead of breaking the layout. */
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+li,
+dd {
+  overflow-wrap: break-word;
+}
+
+/* The hidden attribute should always win, even against display rules. */
+[hidden] {
+  display: none !important;
+}
+
+
+/* ==========================================================================
+   03. BASE ELEMENTS
+   ========================================================================== */
+
+body {
+  min-height: 100vh;
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  line-height: var(--leading);
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizelegibility;
+  transition: background-color var(--duration) var(--ease), color var(--duration) var(--ease);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--color-heading);
+  line-height: 1.3;
+  font-weight: 700;
+  text-wrap: balance;               /* nicer line breaks on short titles */
+}
+
+h1 { font-size: var(--text-3xl); }
+h2 { font-size: var(--text-2xl); }
+h3 { font-size: var(--text-xl); }
+h4 { font-size: var(--text-lg); }
+
+/* "The lobotomized owl". Any element that follows another element inside
+   flowing content gets space above it. One rule instead of fifty. */
+.lesson > * + *,
+.demo-card > * + *,
+.article-card > * + *,
+.profile-card > * + *,
+.tabs__panel > * + *,
+.dialog__inner > * + *,
+.split__text > * + * {
+  margin-block-start: var(--space-4);
+}
+
+a {
+  color: var(--color-link);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+  transition: color var(--duration) var(--ease);
+}
+
+a:hover {
+  color: var(--color-link-hover);
+  text-decoration-thickness: 2px;
+}
+
+ul,
+ol {
+  padding-inline-start: var(--space-5);
+}
+
+li + li {
+  margin-block-start: var(--space-1);
+}
+
+/* Nested lists get a little breathing room. */
+li > ul,
+li > ol {
+  margin-block-start: var(--space-1);
+}
+
+hr {
+  border: 0;
+  border-block-start: 1px solid var(--color-border);
+  margin-block: var(--space-5);
+}
+
+strong { font-weight: 700; }
+
+mark {
+  background-color: var(--color-highlight);
+  color: inherit;
+  padding-inline: 0.2em;
+  border-radius: 3px;
+}
+
+small { font-size: var(--text-sm); }
+
+del { color: var(--color-text-muted); }
+
+ins {
+  text-decoration: none;
+  background-color: var(--color-success-soft);
+  color: var(--color-success);
+  padding-inline: 0.2em;
+  border-radius: 3px;
+}
+
+sub,
+sup {
+  font-size: 0.75em;
+  line-height: 0;
+}
+
+abbr[title] {
+  text-decoration: underline dotted;
+  cursor: help;
+}
+
+/* Inline code and keyboard keys. Code is always written left-to-right,
+   so we force the direction even inside Arabic sentences. */
+code,
+kbd {
+  font-family: var(--font-mono);
+  font-size: 0.875em;
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+
+code {
+  background-color: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 0.1em 0.4em;
+}
+
+kbd {
+  display: inline-block;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-block-end-width: 3px;
+  border-radius: var(--radius-sm);
+  padding: 0 0.45em;
+  line-height: 1.6;
+}
+
+::selection {
+  background-color: var(--color-accent);
+  color: var(--color-on-accent);
+}
+
+
+/* ==========================================================================
+   04. LAYOUT HELPERS
+   ========================================================================== */
+
+/* Centres content and caps its width. min() picks the smaller value, so on
+   phones we get the full width minus a 16px gutter on each side. */
+.container {
+  width: min(100% - 2rem, var(--container));
+  margin-inline: auto;
+}
+
+.container--narrow {
+  width: min(100% - 2rem, var(--container-narrow));
+}
+
+/* A full-width horizontal stripe. Alternating bands give long pages rhythm. */
+.band {
+  padding-block: var(--space-8);
+}
+
+.band--alt {
+  background-color: var(--color-surface);
+  border-block: 1px solid var(--color-border);
+}
+
+.section-heading {
+  text-align: center;
+  max-width: 640px;
+  margin-inline: auto;
+  margin-block-end: var(--space-6);
+}
+
+.section-heading > * + * {
+  margin-block-start: var(--space-2);
+}
+
+.section-heading p:last-child {
+  color: var(--color-text-muted);
+}
+
+/* Small uppercase-style label above headings. */
+.eyebrow {
+  display: inline-block;
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--color-accent-text);
+  letter-spacing: 0.02em;
+}
+
+.text-accent {
+  color: var(--color-accent-text);
+}
+
+/* Auto-fitting grid: as many columns of at least 240px as will fit. No
+   media queries needed. This one line is worth memorising. */
+.demo-grid,
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+  gap: var(--space-4);
+}
+
+.card-grid--four {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+}
+
+.split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-6);
+  align-items: center;
+}
+
+@media (min-width: 900px) {
+  .split {
+    grid-template-columns: 1.2fr 1fr;
+  }
+}
+
+
+/* ==========================================================================
+   05. ACCESSIBILITY HELPERS
+   ========================================================================== */
+
+/* Hides something visually but keeps it for screen readers. Never use
+   display:none for this, because that hides it from everyone. */
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* The skip link sits off screen until it receives keyboard focus. */
+.skip-link {
+  position: absolute;
+  inset-inline-start: var(--space-4);
+  inset-block-start: -100px;
+  z-index: 1000;
+  padding: var(--space-2) var(--space-4);
+  background-color: var(--color-accent);
+  color: var(--color-on-accent);
+  font-weight: 700;
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  transition: inset-block-start var(--duration) var(--ease);
+}
+
+.skip-link:focus {
+  inset-block-start: var(--space-3);
+}
+
+/* A clear focus ring for keyboard users only. :focus-visible does not show
+   it after a mouse click, which is why nobody needs to remove outlines
+   anymore. Please never write "outline: none" without a replacement. */
+:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* The main element receives focus from the skip link, but it does not need
+   a giant ring around the entire page. */
+main:focus {
+  outline: none;
+}
+
+
+/* ==========================================================================
+   06. SITE HEADER AND NAVIGATION
+   ========================================================================== */
+
+/* position: sticky keeps the header at the top once you scroll past it,
+   without taking it out of the normal flow like position: fixed does. */
+.site-header {
+  position: sticky;
+  inset-block-start: 0;
+  z-index: 100;
+
+  /* Fallback first for browsers without color-mix(), then the nicer
+     see-through version. The browser keeps the last value it understands. */
+  background-color: var(--color-bg);
+  background-color: color-mix(in srgb, var(--color-bg) 85%, transparent);
+  backdrop-filter: saturate(1.4) blur(10px);
+  border-block-end: 1px solid transparent;
+  transition: border-color var(--duration) var(--ease), box-shadow var(--duration) var(--ease);
+}
+
+/* main.js adds .is-scrolled after the first few pixels of scrolling. */
+.site-header.is-scrolled {
+  border-block-end-color: var(--color-border);
+  box-shadow: var(--shadow-sm);
+}
+
+.site-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  min-height: var(--header-height);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  color: inherit;
+  text-decoration: none;
+}
+
+.brand__logo {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-md);
+}
+
+.brand__text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.3;
+}
+
+.brand__name {
+  font-weight: 700;
+  color: var(--color-heading);
+}
+
+.brand__tagline {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+}
+
+/* The menu button, mobile only. The three bars are one span plus its two
+   pseudo-elements, so no image or icon font is needed. */
+.nav-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  background: none;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+}
+
+.nav-toggle__bars,
+.nav-toggle__bars::before,
+.nav-toggle__bars::after {
+  display: block;
+  width: 18px;
+  height: 2px;
+  background-color: currentcolor;
+  border-radius: 2px;
+  transition: transform var(--duration) var(--ease), opacity var(--duration) var(--ease);
+}
+
+.nav-toggle__bars {
+  position: relative;
+}
+
+.nav-toggle__bars::before,
+.nav-toggle__bars::after {
+  content: "";
+  position: absolute;
+  inset-inline-start: 0;
+}
+
+.nav-toggle__bars::before { inset-block-start: -6px; }
+.nav-toggle__bars::after { inset-block-start: 6px; }
+
+/* When open, the bars turn into an X. We style on aria-expanded, so the
+   visual state and the accessible state can never disagree. */
+.nav-toggle[aria-expanded="true"] .nav-toggle__bars {
+  background-color: transparent;
+}
+
+.nav-toggle[aria-expanded="true"] .nav-toggle__bars::before {
+  transform: translateY(6px) rotate(45deg);
+}
+
+.nav-toggle[aria-expanded="true"] .nav-toggle__bars::after {
+  transform: translateY(-6px) rotate(-45deg);
+}
+
+/* Mobile first: the nav is a dropdown panel under the header. When JS is
+   off (html.no-js) it simply shows, so nobody is ever locked out. */
+.site-nav {
+  position: absolute;
+  inset-inline: 0;
+  inset-block-start: 100%;
+  display: none;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding: var(--space-4) var(--space-4) var(--space-5);
+  background-color: var(--color-surface);
+  border-block-end: 1px solid var(--color-border);
+  box-shadow: var(--shadow-md);
+}
+
+.site-nav.is-open,
+.no-js .site-nav {
+  display: flex;
+}
+
+.no-js .site-nav {
+  position: static;
+  box-shadow: none;
+}
+
+.no-js .nav-toggle {
+  display: none;
+}
+
+.site-nav__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding: 0;
+  list-style: none;
+}
+
+.site-nav__list li + li {
+  margin: 0;
+}
+
+.site-nav__link {
+  display: block;
+  padding: var(--space-2) var(--space-3);
+  color: var(--color-text);
+  text-decoration: none;
+  border-radius: var(--radius-md);
+  font-weight: 500;
+}
+
+.site-nav__link:hover {
+  background-color: var(--color-surface-2);
+  color: var(--color-heading);
+}
+
+.site-nav__link[aria-current="page"],
+.site-nav__link.is-active {
+  color: var(--color-heading);
+  background-color: var(--color-surface-2);
+  box-shadow: inset -3px 0 0 var(--color-accent);
+}
+
+/* Desktop: the nav becomes a horizontal row and the menu button goes away. */
+@media (min-width: 960px) {
+  .nav-toggle {
+    display: none;
+  }
+
+  .site-nav,
+  .no-js .site-nav {
+    position: static;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0;
+    background: none;
+    border: 0;
+    box-shadow: none;
+  }
+
+  .site-nav__list {
+    flex-direction: row;
+  }
+
+  .site-nav__link[aria-current="page"],
+  .site-nav__link.is-active {
+    box-shadow: inset 0 -3px 0 var(--color-accent);
+  }
+}
+
+
+/* ==========================================================================
+   07. THEME TOGGLE
+   A switch drawn entirely in CSS: a track and a thumb that slides.
+   ========================================================================== */
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  background: none;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  font-size: var(--text-sm);
+  white-space: nowrap;
+}
+
+.theme-toggle__track {
+  position: relative;
+  width: 36px;
+  height: 20px;
+  background-color: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+}
+
+.theme-toggle__thumb {
+  position: absolute;
+  inset-block-start: 2px;
+  inset-inline-start: 2px;
+  width: 14px;
+  height: 14px;
+  background-color: var(--color-text-muted);
+  border-radius: 50%;
+  transition: transform var(--duration) var(--ease), background-color var(--duration) var(--ease);
+}
+
+/* In RTL "inline start" is the right edge, so the thumb travels left,
+   which is a negative X. The :dir() selector would also work here. */
+.theme-toggle[aria-pressed="true"] .theme-toggle__thumb {
+  transform: translateX(-16px);
+  background-color: var(--color-accent);
+}
+
+[dir="ltr"] .theme-toggle[aria-pressed="true"] .theme-toggle__thumb {
+  transform: translateX(16px);
+}
+
+/* Without JavaScript the toggle cannot work, so we hide it. */
+.no-js .theme-toggle {
+  display: none;
+}
+
+
+/* ==========================================================================
+   08. BUTTONS
+   One base class and a few modifiers. Links and buttons can both wear it.
+   ========================================================================== */
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: 44px;                 /* comfortable touch target */
+  padding: var(--space-2) var(--space-5);
+  font-weight: 700;
+  line-height: 1.2;
+  text-decoration: none;
+  color: var(--color-heading);
+  background-color: var(--color-surface);
+  border: 2px solid var(--color-heading);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition:
+    transform var(--duration) var(--ease),
+    background-color var(--duration) var(--ease),
+    box-shadow var(--duration) var(--ease);
+}
+
+.button:hover {
+  color: var(--color-heading);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.button:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+.button--primary {
+  color: var(--color-on-accent);
+  background-color: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+.button--primary:hover {
+  color: var(--color-on-accent);
+  background-color: var(--color-accent-strong);
+  border-color: var(--color-accent-strong);
+}
+
+.button--ghost {
+  background-color: transparent;
+  border-color: var(--color-border);
+}
+
+.button--small {
+  min-height: 38px;
+  padding: var(--space-1) var(--space-4);
+  font-size: var(--text-sm);
+}
+
+.button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* A button that looks like a link. Use it for actions, never for navigation. */
+.link-button {
+  padding: 0;
+  background: none;
+  border: 0;
+  color: var(--color-link);
+  font-size: var(--text-sm);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  cursor: pointer;
+}
+
+.link-button:hover {
+  color: var(--color-link-hover);
+}
+
+
+/* ==========================================================================
+   09. HERO AND PAGE HERO
+   ========================================================================== */
+
+.hero {
+  position: relative;
+  padding-block: var(--space-7) var(--space-8);
+  overflow: hidden;
+}
+
+/* A faint grid pattern drawn with two gradients. No image file needed. */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image:
+    linear-gradient(var(--color-border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-border) 1px, transparent 1px);
+  background-size: 40px 40px;
+  mask-image: radial-gradient(ellipse at center, #000 20%, transparent 75%);
+  opacity: 0.5;
+}
+
+.hero__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-6);
+  align-items: center;
+}
+
+@media (min-width: 960px) {
+  .hero__inner {
+    grid-template-columns: 1.1fr 1fr;
+  }
+}
+
+.hero__content > * + * {
+  margin-block-start: var(--space-4);
+}
+
+.hero__title {
+  line-height: 1.2;
+}
+
+.hero__lead {
+  font-size: var(--text-lg);
+  color: var(--color-text-muted);
+  max-width: 56ch;
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.hero__stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-5);
+  padding-block-start: var(--space-3);
+}
+
+.hero__media img {
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--color-border);
+}
+
+/* A stat is a <div> holding a <dt> label and a <dd> value. In the HTML the
+   label comes first (that reads better for screen readers), but visually
+   we want the big number on top, so column-reverse flips the order. */
+.stat {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.stat__value {
+  margin: 0;
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  color: var(--color-heading);
+  line-height: 1.2;
+  font-variant-numeric: tabular-nums; /* digits keep the same width while counting */
+}
+
+.stat__label {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+.page-hero {
+  padding-block: var(--space-7);
+  background-color: var(--color-surface);
+  border-block-end: 1px solid var(--color-border);
+}
+
+.page-hero__title {
+  margin-block-start: var(--space-3);
+}
+
+.page-hero__lead {
+  margin-block-start: var(--space-3);
+  font-size: var(--text-lg);
+  color: var(--color-text-muted);
+  max-width: 60ch;
+}
+
+/* Breadcrumbs: the separators are generated by CSS, so the HTML stays a
+   clean list and screen readers do not read out a pile of slashes. */
+.breadcrumbs ol {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  padding: 0;
+  list-style: none;
+  font-size: var(--text-sm);
+}
+
+.breadcrumbs li {
+  margin: 0;
+  color: var(--color-text-muted);
+}
+
+.breadcrumbs li + li::before {
+  content: "/";
+  margin-inline-end: var(--space-2);
+  color: var(--color-border);
+}
+
+
+/* ==========================================================================
+   10. COURSE LAYOUT AND TABLE OF CONTENTS
+   ========================================================================== */
+
+.course-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-6);
+  padding-block: var(--space-6) var(--space-8);
+}
+
+@media (min-width: 1024px) {
+  .course-layout {
+    grid-template-columns: 260px minmax(0, 1fr);
+    align-items: start;
+  }
+}
+
+.toc__inner {
+  padding: var(--space-5);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+}
+
+/* On large screens the table of contents follows you down the page. */
+@media (min-width: 1024px) {
+  .toc {
+    position: sticky;
+    inset-block-start: calc(var(--header-height) + var(--space-4));
+    max-height: calc(100vh - var(--header-height) - var(--space-6));
+    overflow-y: auto;
+  }
+}
+
+.toc__title {
+  font-size: var(--text-lg);
+}
+
+.toc__list {
+  margin-block-start: var(--space-3);
+  padding-inline-start: var(--space-5);
+  font-size: var(--text-sm);
+}
+
+.toc__list a {
+  display: block;
+  padding-block: 0.15rem;
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.toc__list a:hover {
+  color: var(--color-link);
+}
+
+/* main.js marks the lesson you are reading with .is-active. */
+.toc__list a.is-active {
+  color: var(--color-heading);
+  font-weight: 700;
+}
+
+/* And lessons you finished get a quiet strike-through feel. */
+.toc__list a.is-done {
+  color: var(--color-success);
+}
+
+.course-progress {
+  display: grid;
+  gap: var(--space-2);
+  margin-block-start: var(--space-3);
+  padding-block-end: var(--space-4);
+  border-block-end: 1px solid var(--color-border);
+}
+
+.course-progress__label {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+/* Styling <progress> needs vendor prefixes, there is no standard way yet. */
+.course-progress__bar {
+  width: 100%;
+  height: 10px;
+  appearance: none;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background-color: var(--color-surface-2);
+  overflow: hidden;
+}
+
+.course-progress__bar::-webkit-progress-bar {
+  background-color: var(--color-surface-2);
+  border-radius: var(--radius-pill);
+}
+
+.course-progress__bar::-webkit-progress-value {
+  background-color: var(--color-success);
+  border-radius: var(--radius-pill);
+  transition: width var(--duration) var(--ease);
+}
+
+.course-progress__bar::-moz-progress-bar {
+  background-color: var(--color-success);
+  border-radius: var(--radius-pill);
+}
+
+.course-progress .link-button {
+  justify-self: start;
+}
+
+
+/* ==========================================================================
+   11. LESSONS
+   ========================================================================== */
+
+.lessons {
+  display: grid;
+
+  /* minmax(0, 1fr) instead of the default "auto" column. An auto column
+     grows to fit its widest child (a long code line, a wide table), which
+     pushes the page sideways on phones. 0 lets it shrink. */
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-6);
+  min-width: 0;                     /* lets wide children (tables) shrink */
+}
+
+.lesson {
+  padding: clamp(var(--space-4), 4vw, var(--space-6));
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+/* A finished lesson gets a green edge on its starting side. */
+.lesson.is-complete {
+  border-inline-start: 4px solid var(--color-success);
+}
+
+.lesson__header > * + * {
+  margin-block-start: var(--space-2);
+}
+
+.lesson__number {
+  display: inline-block;
+  padding: 0.1rem var(--space-3);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--color-on-accent);
+  background-color: var(--color-accent);
+  border-radius: var(--radius-pill);
+}
+
+.lesson__lead {
+  font-size: var(--text-lg);
+  color: var(--color-text-muted);
+}
+
+.lesson__footer {
+  padding-block-start: var(--space-4);
+  border-block-start: 1px dashed var(--color-border);
+}
+
+/* The "I finished this lesson" checkbox. accent-color paints native
+   checkboxes, radios and ranges with one line of CSS. */
+.lesson-check {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-weight: 500;
+  cursor: pointer;
+}
+
+input[type="checkbox"],
+input[type="radio"],
+input[type="range"],
+progress,
+meter {
+  accent-color: var(--color-success);
+}
+
+.lesson-check input {
+  width: 1.15rem;
+  height: 1.15rem;
+}
+
+
+/* ==========================================================================
+   12. CONTENT COMPONENTS
+   ========================================================================== */
+
+/* Callouts: tips and warnings. The coloured edge sits on the starting side. */
+.callout {
+  padding: var(--space-4) var(--space-5);
+  border-radius: var(--radius-md);
+  border-inline-start: 4px solid var(--color-info);
+  background-color: var(--color-surface-2);
+}
+
+.callout > * + * {
+  margin-block-start: var(--space-1);
+}
+
+.callout__title {
+  font-weight: 700;
+  color: var(--color-heading);
+}
+
+.callout--tip {
+  border-inline-start-color: var(--color-success);
+  background-color: var(--color-success-soft);
+}
+
+.callout--warning {
+  border-inline-start-color: var(--color-warning);
+  background-color: var(--color-warning-soft);
+}
+
+/* Demo cards hold the live examples inside lessons. */
+.demo-card {
+  padding: var(--space-4);
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.demo-card--wide {
+  grid-column: 1 / -1;
+}
+
+.demo-card__label {
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--color-text-muted);
+}
+
+.demo-card figcaption {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+.demo-image {
+  border-radius: var(--radius-sm);
+}
+
+.demo-image--contain {
+  object-fit: contain;
+  max-height: 120px;
+  width: auto;
+}
+
+/* A broken image still takes up space. We draw a dashed box so it is
+   obvious on screen what happened. */
+.demo-image--broken {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 120px;
+  width: 100%;
+  padding: var(--space-3);
+  border: 2px dashed var(--color-danger);
+  color: var(--color-danger);
+  font-size: var(--text-sm);
+  text-align: center;
+}
+
+.feature-list {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.feature-list li + li {
+  margin: 0;
+}
+
+.link-list {
+  display: grid;
+  gap: var(--space-2);
+  padding: 0;
+  list-style: none;
+}
+
+.link-list li {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--space-2);
+  margin: 0;
+  padding: var(--space-3) var(--space-4);
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.link-list__type {
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+/* Quotes */
+.quote {
+  position: relative;
+  padding: var(--space-5) var(--space-6);
+  background-color: var(--color-surface-2);
+  border-inline-start: 4px solid var(--color-accent);
+  border-radius: var(--radius-md);
+  font-size: var(--text-lg);
+}
+
+.quote footer {
+  margin-block-start: var(--space-2);
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+.address-card {
+  font-style: normal;               /* <address> is italic by default */
+  padding: var(--space-3) var(--space-4);
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+/* Glossary built from a description list: a two-column grid on wide screens. */
+.glossary {
+  display: grid;
+  gap: var(--space-2) var(--space-5);
+}
+
+@media (min-width: 640px) {
+  .glossary {
+    grid-template-columns: max-content 1fr;
+  }
+}
+
+.glossary dt {
+  font-weight: 700;
+  color: var(--color-heading);
+}
+
+.glossary dd {
+  margin: 0;
+  color: var(--color-text-muted);
+}
+
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  padding: 0;
+  list-style: none;
+}
+
+.tag-list li {
+  margin: 0;
+  padding: 0.1rem var(--space-3);
+  font-size: var(--text-sm);
+  background-color: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+}
+
+.checklist {
+  display: grid;
+  gap: var(--space-2);
+  padding: 0;
+  list-style: none;
+}
+
+.checklist li {
+  margin: 0;
+}
+
+.checklist label {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  cursor: pointer;
+}
+
+.checklist input {
+  margin-block-start: 0.45rem;
+}
+
+/* Crossing out a checked item. :has() lets a parent react to its child,
+   something CSS could not do for decades. */
+.checklist label:has(input:checked) {
+  color: var(--color-text-muted);
+  text-decoration: line-through;
+}
+
+
+/* ==========================================================================
+   13. CODE BLOCKS
+   ========================================================================== */
+
+/* The whole block is left-to-right, because code always is. That also
+   flips "inline end" to the right edge, which is where the copy button
+   goes, away from the file name on the left. */
+.code-block {
+  position: relative;
+  direction: ltr;
+  overflow: hidden;
+  background-color: var(--color-code-bg);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+}
+
+.code-block__caption {
+  padding: var(--space-2) var(--space-4);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: #a9a9bc;
+  background-color: rgb(255 255 255 / 5%);
+  border-block-end: 1px solid rgb(255 255 255 / 8%);
+  direction: ltr;
+  text-align: left;
+}
+
+/* Code reads left to right even on an Arabic page. */
+.code-block pre {
+  margin: 0;
+  padding: var(--space-4);
+  overflow-x: auto;
+  direction: ltr;
+  text-align: left;
+  tab-size: 2;
+}
+
+.code-block code {
+  padding: 0;
+  background: none;
+  border: 0;
+  color: var(--color-code-text);
+  font-size: 0.875rem;
+  line-height: 1.7;
+}
+
+/* The copy button is created by main.js, so it never appears without JS. */
+.code-block__copy {
+  position: absolute;
+  inset-block-start: var(--space-1);
+  inset-inline-end: var(--space-2);
+  padding: 0.15rem var(--space-3);
+  font-size: 0.75rem;
+  color: #e8e8ee;
+  background-color: rgb(255 255 255 / 8%);
+  border: 1px solid rgb(255 255 255 / 20%);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+.code-block__copy:hover {
+  background-color: rgb(255 255 255 / 18%);
+}
+
+
+/* ==========================================================================
+   14. TABS
+   ========================================================================== */
+
+.tabs {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.tabs__list {
+  display: flex;
+  overflow-x: auto;
+  background-color: var(--color-surface-2);
+  border-block-end: 1px solid var(--color-border);
+}
+
+.tabs__tab {
+  flex: 1;
+  padding: var(--space-3) var(--space-4);
+  background: none;
+  border: 0;
+  border-block-end: 3px solid transparent;
+  font-weight: 700;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.tabs__tab:hover {
+  color: var(--color-heading);
+}
+
+.tabs__tab[aria-selected="true"] {
+  color: var(--color-heading);
+  background-color: var(--color-surface);
+  border-block-end-color: var(--color-accent);
+}
+
+.tabs__panel {
+  padding: var(--space-4) var(--space-5);
+}
+
+/* Without JS every panel shows, stacked, separated by a line. */
+.no-js .tabs__panel + .tabs__panel {
+  border-block-start: 1px solid var(--color-border);
+}
+
+
+/* ==========================================================================
+   15. TABLES
+   ========================================================================== */
+
+/* The wrapper scrolls sideways on narrow screens. */
+.table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;       /* merges double borders into one */
+  font-size: 0.95rem;
+}
+
+.data-table caption {
+  padding: var(--space-3) var(--space-4);
+  font-weight: 700;
+  text-align: start;
+  color: var(--color-heading);
+  background-color: var(--color-surface-2);
+  border-block-end: 1px solid var(--color-border);
+}
+
+.data-table th,
+.data-table td {
+  padding: var(--space-3) var(--space-4);
+  text-align: start;
+  border-block-end: 1px solid var(--color-border);
+  vertical-align: top;
+}
+
+.data-table thead th {
+  background-color: var(--color-surface-2);
+  color: var(--color-heading);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.data-table tbody th {
+  background-color: var(--color-bg);
+}
+
+/* Zebra stripes help the eye follow a row across. */
+.data-table tbody tr:nth-child(even) td {
+  background-color: var(--color-bg);
+  background-color: color-mix(in srgb, var(--color-surface-2) 45%, transparent);
+}
+
+.data-table tbody tr:hover td {
+  background-color: var(--color-highlight);
+}
+
+.data-table tfoot th,
+.data-table tfoot td {
+  font-weight: 700;
+  border-block-end: 0;
+  background-color: var(--color-surface-2);
+}
+
+.data-table--compact th,
+.data-table--compact td {
+  padding: var(--space-2) var(--space-3);
+}
+
+.sort-button {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 0;
+  background: none;
+  border: 0;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* A small triangle drawn with borders shows the sort direction. */
+.sort-button::after {
+  content: "";
+  border-inline: 5px solid transparent;
+  border-block-start: 6px solid currentcolor;
+  opacity: 0.3;
+}
+
+th[aria-sort="ascending"] .sort-button::after {
+  border-block-start: 0;
+  border-block-end: 6px solid currentcolor;
+  opacity: 1;
+}
+
+th[aria-sort="descending"] .sort-button::after {
+  opacity: 1;
+}
+
+.table-tools {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.table-tools .input {
+  flex: 1 1 260px;
+}
+
+.table-tools__count {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+.table-empty {
+  padding: var(--space-4);
+  text-align: center;
+  color: var(--color-text-muted);
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+
+/* ==========================================================================
+   16. FORMS
+   ========================================================================== */
+
+.form {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-5);
+}
+
+.form__note {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+/* fieldset groups fields. We keep its border but soften it. */
+.form__group {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-4);
+  padding: var(--space-5);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+@media (min-width: 720px) {
+  .form__group {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .form__group > legend,
+  .form__group > .choice-group,
+  .form__group > .field:has(textarea) {
+    grid-column: 1 / -1;
+  }
+}
+
+.form__group > legend,
+.choice-group > legend {
+  padding-inline: var(--space-2);
+  font-weight: 700;
+  color: var(--color-heading);
+}
+
+.field {
+  display: grid;
+  gap: var(--space-1);
+  align-content: start;
+}
+
+.field > label {
+  font-weight: 500;
+}
+
+/* A label on one side and a live value on the other (the range slider). */
+.field__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--space-3);
+}
+
+.field__row output {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  color: var(--color-heading);
+}
+
+.field--inline {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.field__hint {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+.field__error {
+  min-height: 1.2em;
+  font-size: var(--text-sm);
+  color: var(--color-danger);
+}
+
+.field__error:empty {
+  min-height: 0;
+}
+
+.required {
+  color: var(--color-danger);
+}
+
+/* One shared look for text inputs, selects and textareas. */
+.input {
+  width: 100%;
+  min-height: 44px;
+  padding: var(--space-2) var(--space-3);
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  transition: border-color var(--duration) var(--ease), box-shadow var(--duration) var(--ease);
+}
+
+.input:hover {
+  border-color: var(--color-text-muted);
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--color-accent-strong);
+  box-shadow: 0 0 0 3px var(--color-accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-accent) 40%, transparent);
+}
+
+.input::placeholder {
+  color: var(--color-text-muted);
+  opacity: 0.8;
+}
+
+/* Inputs that are written left to right (email, phone, password) should
+   also have their placeholder aligned to the left. */
+.input[dir="ltr"] {
+  text-align: left;
+}
+
+.textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.input--file {
+  padding: var(--space-2);
+}
+
+.input--file::file-selector-button {
+  margin-inline-end: var(--space-3);
+  padding: var(--space-1) var(--space-3);
+  background-color: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+/* Validation states. main.js adds these classes after you touch a field,
+   so people do not see red errors before they have typed anything. */
+.input.is-invalid {
+  border-color: var(--color-danger);
+  background-color: var(--color-danger-soft);
+}
+
+.input.is-valid {
+  border-color: var(--color-success);
+}
+
+.input-group {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.input-group__button {
+  flex: none;
+  padding-inline: var(--space-4);
+  background-color: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+}
+
+.strength {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+.strength meter {
+  flex: 1;
+  height: 8px;
+}
+
+.choice-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-4);
+  padding: 0;
+  border: 0;
+}
+
+.choice-group > legend {
+  width: 100%;
+  margin-block-end: var(--space-2);
+  padding: 0;
+}
+
+.choice {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  cursor: pointer;
+}
+
+.choice input {
+  width: 1.1rem;
+  height: 1.1rem;
+}
+
+.choice--small {
+  font-size: var(--text-sm);
+}
+
+.range {
+  width: 100%;
+}
+
+.color-input {
+  width: 56px;
+  height: 40px;
+  padding: 2px;
+  background: none;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+.form__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+
+/* ==========================================================================
+   17. MEDIA AND EMBEDS
+   ========================================================================== */
+
+.media {
+  width: 100%;
+  border-radius: var(--radius-md);
+  background-color: #000;
+}
+
+.media--audio {
+  background: none;
+}
+
+/* aspect-ratio keeps the frame in shape at every width. */
+.embed {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 7;
+  border: 0;
+  border-radius: var(--radius-md);
+}
+
+
+/* ==========================================================================
+   18. SEMANTIC DIAGRAM, ARTICLES, ACCORDION
+   ========================================================================== */
+
+/* Named grid areas draw the page skeleton almost like ASCII art. */
+.layout-diagram {
+  display: grid;
+  grid-template-areas:
+    "header header"
+    "nav    nav"
+    "main   aside"
+    "footer footer";
+  grid-template-columns: 3fr 1fr;
+  gap: var(--space-2);
+  padding: var(--space-3);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  direction: ltr;
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.layout-diagram__box {
+  padding: var(--space-3);
+  text-align: center;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+  background-color: var(--color-surface);
+}
+
+.layout-diagram__box--header {
+  grid-area: header;
+  background-color: var(--color-accent);
+  color: var(--color-on-accent);
+}
+.layout-diagram__box--nav { grid-area: nav; }
+
+.layout-diagram__box--main {
+  grid-area: main;
+  display: grid;
+  gap: var(--space-2);
+}
+.layout-diagram__box--aside { grid-area: aside; }
+
+.layout-diagram__box--footer {
+  grid-area: footer;
+  background-color: var(--color-heading);
+  color: var(--color-bg);
+}
+
+.layout-diagram__inner {
+  display: block;
+  padding: var(--space-2);
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-sm);
+}
+
+.article-card {
+  padding: var(--space-4) var(--space-5);
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.article-card--aside {
+  background-color: var(--color-surface-2);
+}
+
+.article-card__title {
+  font-size: var(--text-lg);
+}
+
+.article-card__meta,
+.article-card__footer {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+.article-card__footer {
+  padding-block-start: var(--space-2);
+  border-block-start: 1px dashed var(--color-border);
+}
+
+.accordion-tools {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.accordion {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.accordion__item {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.accordion__item > summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  font-weight: 700;
+  cursor: pointer;
+  list-style: none;                 /* hides the default triangle */
+}
+
+/* Safari still uses its own marker. */
+.accordion__item > summary::-webkit-details-marker {
+  display: none;
+}
+
+/* Our own plus sign that rotates into an X when open. */
+.accordion__item > summary::after {
+  content: "+";
+  flex: none;
+  font-size: 1.4rem;
+  line-height: 1;
+  color: var(--color-text-muted);
+  transition: transform var(--duration) var(--ease);
+}
+
+.accordion__item[open] > summary::after {
+  transform: rotate(45deg);
+}
+
+.accordion__item > p {
+  padding: 0 var(--space-4) var(--space-4);
+  color: var(--color-text-muted);
+}
+
+
+/* ==========================================================================
+   19. DIALOGS
+   ========================================================================== */
+
+.dialog {
+  width: min(100% - 2rem, 520px);
+  padding: 0;
+  color: var(--color-text);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+}
+
+/* ::backdrop is the dimmed layer behind a modal dialog. */
+.dialog::backdrop {
+  background-color: rgb(10 10 35 / 60%);
+  backdrop-filter: blur(2px);
+}
+
+.dialog[open] {
+  animation: dialog-in 0.25s var(--ease);
+}
+
+@keyframes dialog-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+  }
+}
+
+.dialog__inner {
+  padding: var(--space-6);
+}
+
+.dialog__title {
+  font-size: var(--text-xl);
+}
+
+.dialog__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-2);
+}
+
+.summary-list {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: var(--space-1) var(--space-4);
+  padding: var(--space-3) var(--space-4);
+  background-color: var(--color-bg);
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+}
+
+.summary-list dt {
+  font-weight: 700;
+}
+
+.summary-list dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+
+/* ==========================================================================
+   20. PLAYGROUND
+   ========================================================================== */
+
+.playground {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-4);
+}
+
+@media (min-width: 900px) {
+  .playground {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.playground__pane {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: var(--space-2);
+}
+
+.playground__label {
+  font-weight: 700;
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+.playground__editor {
+  width: 100%;
+  min-height: 320px;
+  padding: var(--space-4);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: var(--color-code-text);
+  background-color: var(--color-code-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  resize: vertical;
+  tab-size: 2;
+}
+
+.playground__preview {
+  width: 100%;
+  min-height: 320px;
+  height: 100%;
+  background-color: #fff;           /* the preview is a blank page, always white */
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.playground__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+/* The playground needs JavaScript to run, so explain that when it is off. */
+.no-js .playground__actions {
+  display: none;
+}
+
+
+/* ==========================================================================
+   21. QUIZ
+   ========================================================================== */
+
+.quiz {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.quiz__question {
+  display: grid;
+  gap: var(--space-2);
+  padding: var(--space-4) var(--space-5);
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.quiz__question legend {
+  float: inline-start;              /* trick: makes the legend sit INSIDE the box */
+  width: 100%;
+  margin-block-end: var(--space-2);
+  font-weight: 700;
+  color: var(--color-heading);
+}
+
+.quiz__question.is-correct {
+  border-color: var(--color-success);
+  background-color: var(--color-success-soft);
+}
+
+.quiz__question.is-wrong {
+  border-color: var(--color-danger);
+  background-color: var(--color-danger-soft);
+}
+
+.quiz__result {
+  display: block;
+  font-size: var(--text-lg);
+  font-weight: 700;
+  text-align: center;
+}
+
+
+/* ==========================================================================
+   22. PROFILE CARD
+   ========================================================================== */
+
+.profile-card {
+  padding: var(--space-6);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+}
+
+.profile-card__header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-4);
+  padding-block-end: var(--space-4);
+  border-block-end: 1px solid var(--color-border);
+}
+
+.profile-card__avatar {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  border: 3px solid var(--color-accent);
+}
+
+.profile-card__name {
+  font-size: var(--text-2xl);
+}
+
+.profile-card__role {
+  color: var(--color-text-muted);
+}
+
+.profile-card__footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  padding-block-start: var(--space-4);
+  border-block-start: 1px solid var(--color-border);
+}
+
+
+/* ==========================================================================
+   23. ABOUT PAGE PIECES
+   ========================================================================== */
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-3);
+}
+
+.stat--card {
+  padding: var(--space-5);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  text-align: center;
+}
+
+.card {
+  padding: var(--space-5);
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  transition: transform var(--duration) var(--ease), box-shadow var(--duration) var(--ease);
+}
+
+.band:not(.band--alt) .card {
+  background-color: var(--color-surface);
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+
+.card > * + * {
+  margin-block-start: var(--space-2);
+}
+
+.card__title {
+  font-size: var(--text-lg);
+}
+
+.card p {
+  color: var(--color-text-muted);
+}
+
+.card__number {
+  font-family: var(--font-mono);
+  font-size: var(--text-2xl);
+  font-weight: 600;
+  color: var(--color-accent-text);
+}
+
+/* The timeline is an <ol>. We hide the numbers, draw a line on the
+   starting side, and put a dot on each item with ::before. */
+.timeline {
+  position: relative;
+  padding: 0;
+  list-style: none;
+}
+
+.timeline::before {
+  content: "";
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 9px;
+  width: 2px;
+  background-color: var(--color-border);
+}
+
+.timeline__item {
+  position: relative;
+  padding-inline-start: var(--space-7);
+  padding-block-end: var(--space-5);
+}
+
+.timeline__item + .timeline__item {
+  margin: 0;
+}
+
+.timeline__item::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: 0;
+  inset-block-start: 0.45rem;
+  width: 20px;
+  height: 20px;
+  background-color: var(--color-accent);
+  border: 4px solid var(--color-bg);
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px var(--color-accent);
+}
+
+.timeline__title {
+  font-size: var(--text-lg);
+}
+
+.timeline__item p {
+  margin-block-start: var(--space-1);
+  color: var(--color-text-muted);
+}
+
+/* The call-to-action band is always dark navy, in both themes. Using the
+   heading token here would turn it white in dark mode, and yellow on white
+   is unreadable. Some colours should stay fixed on purpose. */
+.cta {
+  background-color: #0a0a23;
+  color: #f5f6f7;
+  border-block: 1px solid var(--color-border);
+}
+
+.cta h2 {
+  color: var(--color-accent);
+}
+
+.cta a {
+  color: var(--color-accent);
+}
+
+.cta__inner {
+  display: grid;
+  gap: var(--space-4);
+  justify-items: center;
+  text-align: center;
+}
+
+.cta__form {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-2);
+  width: min(100%, 480px);
+}
+
+.cta__form .field {
+  flex: 1 1 240px;
+}
+
+.cta .input {
+  color: var(--color-text);
+}
+
+.cta .field__error {
+  color: #ffadad;
+}
+
+
+/* ==========================================================================
+   24. FOOTER
+   ========================================================================== */
+
+.site-footer {
+  padding-block: var(--space-7) var(--space-5);
+  background-color: var(--color-surface);
+  border-block-start: 1px solid var(--color-border);
+}
+
+.site-footer__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
+  gap: var(--space-6);
+}
+
+.site-footer__title {
+  margin-block-end: var(--space-3);
+  font-size: var(--text-base);
+}
+
+.site-footer__col p {
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+.site-footer__list {
+  padding: 0;
+  list-style: none;
+  font-size: var(--text-sm);
+}
+
+.site-footer__list a,
+.site-footer__address a {
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.site-footer__list a:hover,
+.site-footer__address a:hover {
+  color: var(--color-link);
+  text-decoration: underline;
+}
+
+.site-footer__address {
+  font-style: normal;
+  font-size: var(--text-sm);
+}
+
+.site-footer__bottom {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-block-start: var(--space-6);
+  padding-block-start: var(--space-4);
+  border-block-start: 1px solid var(--color-border);
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+
+/* ==========================================================================
+   25. FLOATING UI
+   ========================================================================== */
+
+/* Scroll progress bar. main.js sets the --progress variable (0 to 1) and
+   transform: scaleX() stretches the bar. Transforms are cheap to animate,
+   much cheaper than changing width on every scroll event. */
+.scroll-progress {
+  position: fixed;
+  inset-block-start: 0;
+  inset-inline: 0;
+  z-index: 200;
+  height: 3px;
+  pointer-events: none;
+}
+
+.scroll-progress__bar {
+  display: block;
+  height: 100%;
+  background-color: var(--color-accent);
+  transform: scaleX(var(--progress, 0));
+  transform-origin: right;          /* RTL: grows from the right */
+}
+
+[dir="ltr"] .scroll-progress__bar {
+  transform-origin: left;
+}
+
+.back-to-top {
+  position: fixed;
+  inset-block-end: var(--space-5);
+  inset-inline-end: var(--space-5);
+  z-index: 90;
+  min-width: 52px;
+  min-height: 52px;
+  padding: var(--space-2);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--color-on-accent);
+  background-color: var(--color-accent);
+  border: 0;
+  border-radius: 50%;
+  box-shadow: var(--shadow-md);
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(12px);
+  transition: opacity var(--duration) var(--ease), transform var(--duration) var(--ease), visibility var(--duration);
+}
+
+.back-to-top.is-visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.toast-region {
+  position: fixed;
+  inset-block-end: var(--space-5);
+  inset-inline-start: 50%;
+  z-index: 300;
+  display: grid;
+  gap: var(--space-2);
+  width: min(100% - 2rem, 420px);
+  transform: translateX(50%);       /* RTL: start is the right, so we move right */
+  pointer-events: none;
+}
+
+[dir="ltr"] .toast-region {
+  transform: translateX(-50%);
+}
+
+.toast {
+  padding: var(--space-3) var(--space-4);
+  color: var(--color-bg);
+  background-color: var(--color-heading);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  text-align: center;
+  font-weight: 500;
+  animation: toast-in 0.3s var(--ease);
+}
+
+.toast--success {
+  border-inline-start: 5px solid var(--color-success);
+}
+
+.toast--error {
+  border-inline-start: 5px solid var(--color-danger);
+}
+
+.toast.is-leaving {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.3s var(--ease), transform 0.3s var(--ease);
+}
+
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+
+.noscript-note {
+  position: fixed;
+  inset-block-end: 0;
+  inset-inline: 0;
+  z-index: 300;
+  padding: var(--space-2) var(--space-4);
+  text-align: center;
+  font-size: var(--text-sm);
+  color: var(--color-on-accent);
+  background-color: var(--color-accent);
+}
+
+
+/* The 404 page: one big number and a way home. */
+.not-found {
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+  text-align: center;
+}
+
+.not-found__inner {
+  display: grid;
+  gap: var(--space-4);
+  justify-items: center;
+}
+
+.not-found__code {
+  font-family: var(--font-mono);
+  font-size: clamp(5rem, 3rem + 10vw, 9rem);
+  font-weight: 600;
+  line-height: 1;
+  color: var(--color-accent);
+}
+
+
+/* ==========================================================================
+   26. MOTION: REVEAL ON SCROLL
+   Elements with data-reveal start slightly faded and lowered. main.js
+   adds .is-revealed when they enter the screen. The .js prefix matters:
+   without JavaScript nothing would ever add the class, so we only hide
+   things when we KNOW the script is there to reveal them again.
+   ========================================================================== */
+
+.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+}
+
+.js [data-reveal].is-revealed {
+  opacity: 1;
+  transform: none;
+}
+
+
+/* ==========================================================================
+   27. REDUCED MOTION
+   Some people get dizzy or sick from animation and turn it off in their
+   operating system. We respect that wish everywhere with one block.
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .js [data-reveal] {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+
+/* ==========================================================================
+   28. PRINT
+   Learners print lessons more than you would think. Strip the chrome,
+   use black on white, and show where each link goes.
+   ========================================================================== */
+
+@media print {
+  .site-header,
+  .scroll-progress,
+  .back-to-top,
+  .toast-region,
+  .toc,
+  .playground,
+  .theme-toggle,
+  .lesson__footer,
+  .code-block__copy,
+  .noscript-note {
+    display: none !important;
+  }
+
+  body {
+    color: #000;
+    background: #fff;
+    font-size: 11pt;
+  }
+
+  .lesson,
+  .band,
+  .band--alt,
+  .profile-card {
+    box-shadow: none;
+    border: 0;
+    background: none;
+    padding: 0;
+  }
+
+  .course-layout {
+    display: block;
+  }
+
+  .lesson {
+    break-inside: avoid-page;
+    margin-block-end: 1.5rem;
+  }
+
+  .js [data-reveal] {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Print the URL after external links, since paper cannot be clicked. */
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.85em;
+    color: #555;
+  }
+}

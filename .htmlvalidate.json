@@ -1,0 +1,33 @@
+{
+  "$schema": "https://html-validate.org/schemas/config.json",
+  "extends": [
+    "html-validate:recommended"
+  ],
+  "rules": {
+    "void-style": [
+      "error",
+      {
+        "style": "omit"
+      }
+    ],
+    "no-trailing-whitespace": "error",
+    "long-title": [
+      "warn",
+      {
+        "maxlength": 70
+      }
+    ],
+    "form-dup-name": [
+      "error",
+      {
+        "shared": [
+          "radio",
+          "checkbox",
+          "button",
+          "reset",
+          "submit"
+        ]
+      }
+    ]
+  }
+}

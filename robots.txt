@@ -1,0 +1,5 @@
+# Every crawler may read every page.
+User-agent: *
+Allow: /
+
+Sitemap: https://mohammedfahd.github.io/frontend-bootcamp/sitemap.xml
