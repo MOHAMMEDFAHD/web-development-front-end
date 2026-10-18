@@ -20,8 +20,8 @@ The website itself runs with nothing but a browser. Node.js is only for the tool
 **The developer way.** Open a terminal and run:
 
 ```bash
-git clone https://github.com/MOHAMMEDFAHD/frontend-bootcamp.git
-cd frontend-bootcamp
+git clone https://github.com/MOHAMMEDFAHD/web-development-front-end.git
+cd web-development-front-end
 ```
 
 ## Step 2 · Open it in the browser
@@ -36,7 +36,7 @@ That is enough for almost everything. When you want the full experience (clipboa
 
 ## Step 3 · Open it in the editor
 
-In VS Code choose **File > Open Folder** and pick the `frontend-bootcamp` folder. VS Code will offer to install the recommended extensions from `.vscode/extensions.json`. Say yes.
+In VS Code choose **File > Open Folder** and pick the `web-development-front-end` folder. VS Code will offer to install the recommended extensions from `.vscode/extensions.json`. Say yes.
 
 Open `index.html` and scroll. The comments in grey are the real textbook. Read them alongside the page.
 

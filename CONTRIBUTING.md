@@ -22,8 +22,8 @@ Thank you for wanting to help. This project is used by beginners, so the bar for
 ## Workflow
 
 ```bash
-git clone https://github.com/YOUR-NAME/frontend-bootcamp.git
-cd frontend-bootcamp
+git clone https://github.com/YOUR-NAME/web-development-front-end.git
+cd web-development-front-end
 npm install
 git checkout -b fix/short-description
 

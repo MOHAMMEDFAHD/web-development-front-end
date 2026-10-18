@@ -36,7 +36,7 @@ The whole thing lives in one file: `.github/workflows/ci.yml`. It is heavily com
 - the broken image in lesson 06, which is broken on purpose,
 - our own GitHub Pages address, which does not exist until the first deploy.
 
-If an external site is down for a day, this job may go red even though your code is fine. Deploy does not depend on it, so a flaky link never blocks you from publishing.
+If an external site is down for a day, this job reports it, but it is marked `continue-on-error`, so your commit stays green and deploy is never blocked. Open the job log to see which links failed.
 
 ### 3. `deploy`
 
@@ -69,8 +69,8 @@ That means "by default, jobs can only read the code". The deploy job asks for tw
 1. Fork the repository.
 2. **Settings > Pages > Build and deployment > Source**: choose **GitHub Actions**.
 3. **Settings > Actions > General**: make sure actions are allowed (they are by default).
-4. Update the site address. Search the project for `mohammedfahd.github.io/frontend-bootcamp` and replace it with `YOUR-NAME.github.io/YOUR-REPO`. It appears in `index.html`, `about.html`, `robots.txt`, `sitemap.xml` and `lychee.toml`.
-5. If your repository is not called `frontend-bootcamp`, change `<base href="/frontend-bootcamp/">` in `404.html`.
+4. Update the site address. Search the project for `mohammedfahd.github.io/web-development-front-end` and replace it with `YOUR-NAME.github.io/YOUR-REPO`. It appears in `index.html`, `about.html`, `robots.txt`, `sitemap.xml` and `lychee.toml`.
+5. If your repository is not called `web-development-front-end`, change `<base href="/web-development-front-end/">` in `404.html`.
 6. Push to `main`. Open the **Actions** tab and watch it run. The deploy job shows the live URL when it finishes.
 
 ## Running the same checks locally

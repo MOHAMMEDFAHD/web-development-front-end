@@ -3,13 +3,13 @@
      Add a new <url> block each time you add a page. -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://mohammedfahd.github.io/frontend-bootcamp/</loc>
+    <loc>https://mohammedfahd.github.io/web-development-front-end/</loc>
     <lastmod>2026-10-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://mohammedfahd.github.io/frontend-bootcamp/about.html</loc>
+    <loc>https://mohammedfahd.github.io/web-development-front-end/about.html</loc>
     <lastmod>2026-10-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>

@@ -64,8 +64,8 @@ python3 -m http.server 8080
 To work on the code like a developer, clone it with Git instead:
 
 ```bash
-git clone https://github.com/MOHAMMEDFAHD/frontend-bootcamp.git
-cd frontend-bootcamp
+git clone https://github.com/MOHAMMEDFAHD/web-development-front-end.git
+cd web-development-front-end
 npm install
 npm run lint
 ```
@@ -120,7 +120,7 @@ Every interactive feature degrades gracefully. Turn JavaScript off and every les
 ## Project structure
 
 ```
-frontend-bootcamp/
+web-development-front-end/
 ├── index.html                 The HTML lab, 14 lessons + playground + quiz
 ├── about.html                 About page: mission, curriculum, instructor, FAQ
 ├── 404.html                   "Page not found" page for GitHub Pages
@@ -177,8 +177,8 @@ Pull requests are checked but never deployed. The full walkthrough is in [docs/0
 
 1. Fork this repository on GitHub.
 2. In your fork, open **Settings > Pages** and set **Source** to **GitHub Actions**.
-3. Replace `mohammedfahd.github.io/frontend-bootcamp` with your own address in `index.html`, `about.html`, `robots.txt` and `sitemap.xml`. Search and replace does it in one go. If your repository has a different name, update `<base href>` in `404.html` too.
-4. Push to `main`. After a minute or two your site is live at `https://YOUR-NAME.github.io/frontend-bootcamp/`.
+3. Replace `mohammedfahd.github.io/web-development-front-end` with your own address in `index.html`, `about.html`, `robots.txt` and `sitemap.xml`. Search and replace does it in one go. If your repository has a different name, update `<base href>` in `404.html` too.
+4. Push to `main`. After a minute or two your site is live at `https://YOUR-NAME.github.io/web-development-front-end/`.
 
 ## Documentation
 

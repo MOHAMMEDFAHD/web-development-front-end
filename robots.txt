@@ -2,4 +2,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://mohammedfahd.github.io/frontend-bootcamp/sitemap.xml
+Sitemap: https://mohammedfahd.github.io/web-development-front-end/sitemap.xml

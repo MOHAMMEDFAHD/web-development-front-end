@@ -1,14 +1,14 @@
 {
-  "name": "frontend-bootcamp",
+  "name": "web-development-front-end",
   "version": "1.0.0",
   "private": true,
   "description": "A free Arabic front-end bootcamp: HTML, CSS and plain JavaScript, lesson by lesson.",
   "author": "Mohammed Fahd Abrah",
   "license": "MIT",
-  "homepage": "https://mohammedfahd.github.io/frontend-bootcamp/",
+  "homepage": "https://mohammedfahd.github.io/web-development-front-end/",
   "repository": {
     "type": "git",
-    "url": "https://github.com/MOHAMMEDFAHD/frontend-bootcamp.git"
+    "url": "https://github.com/MOHAMMEDFAHD/web-development-front-end.git"
   },
   "engines": {
     "node": ">=20"

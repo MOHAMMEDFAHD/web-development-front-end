@@ -15,7 +15,8 @@
 #              to GitHub Pages. Pull requests are checked but never deployed.
 #
 # One-time setup: in the repository go to Settings > Pages and set
-# "Source" to "GitHub Actions". That's it.
+# "Source" to "GitHub Actions". Until you do, the deploy job fails with
+# a "Not Found" error, because Pages does not exist yet for the repo.
 # ==========================================================================
 
 name: CI
@@ -44,10 +45,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out the code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Set up Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: 22
           cache: npm
@@ -69,9 +70,13 @@ jobs:
   links:
     name: Check links
     runs-on: ubuntu-latest
+    # External sites go down for reasons that have nothing to do with our
+    # code. continue-on-error keeps the commit green while still showing
+    # the broken links in this job's log and in the run summary.
+    continue-on-error: true
     steps:
       - name: Check out the code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Run Lychee
         uses: lycheeverse/lychee-action@v2
@@ -92,7 +97,7 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Check out the code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       # Only the files a visitor needs go online. Docs, configs and
       # node_modules stay in the repository.
@@ -103,13 +108,13 @@ jobs:
           cp -r assets _site/
 
       - name: Configure Pages
-        uses: actions/configure-pages@v5
+        uses: actions/configure-pages@v6
 
       - name: Upload the site
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v5
         with:
           path: _site
 
       - name: Publish
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
