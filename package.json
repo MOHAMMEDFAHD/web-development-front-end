@@ -1,0 +1,35 @@
+{
+  "name": "frontend-bootcamp",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A free Arabic front-end bootcamp: HTML, CSS and plain JavaScript, lesson by lesson.",
+  "author": "Mohammed Fahd Abrah",
+  "license": "MIT",
+  "homepage": "https://mohammedfahd.github.io/frontend-bootcamp/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MOHAMMEDFAHD/frontend-bootcamp.git"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "http-server . -c-1 -p 8080 -o",
+    "lint": "npm run lint:html && npm run lint:css && npm run lint:js",
+    "lint:html": "html-validate \"*.html\"",
+    "lint:css": "stylelint \"assets/css/**/*.css\"",
+    "lint:js": "eslint \"assets/js/**/*.js\"",
+    "fix:css": "stylelint \"assets/css/**/*.css\" --fix",
+    "fix:js": "eslint \"assets/js/**/*.js\" --fix"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.13.0",
+    "globals": "^17.13.0",
+    "html-validate": "^11.16.4",
+    "http-server": "^14.1.1",
+    "stylelint": "^17.16.0",
+    "stylelint-config-standard": "^40.0.0"
+  },
+  "type": "module"
+}

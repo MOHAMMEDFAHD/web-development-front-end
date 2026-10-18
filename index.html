@@ -1,0 +1,1648 @@
+<!DOCTYPE html>
+<!--
+  ==========================================================================
+  Front-End Bootcamp · Lesson page (index.html)
+  --------------------------------------------------------------------------
+  Hi, and welcome to the source code.
+
+  This file is the main page of the bootcamp. Every section you see in the
+  browser is also a lesson about the HTML that builds it, so feel free to
+  read this file top to bottom like a book. The comments are written for
+  you, the learner, not for a machine.
+
+  A few ground rules I follow in this file:
+    1. The HTML only describes WHAT things are (structure and meaning).
+    2. assets/css/style.css decides how things LOOK.
+    3. assets/js/main.js decides how things BEHAVE.
+  If you ever feel tempted to mix those three jobs, stop and ask which
+  file the code really belongs to.
+
+  The DOCTYPE above is not an HTML tag. It is an instruction that tells the
+  browser "render this page using modern HTML5 rules" instead of the old
+  quirks mode from the 1990s. It must be the very first thing in the file,
+  which is why this comment sits right after it and not before it.
+  ==========================================================================
+-->
+
+<!--
+  lang="ar"  tells browsers, search engines and screen readers that the
+             content is Arabic. Screen readers pick the right voice from it.
+  dir="rtl"  flips the reading direction to right-to-left.
+  class="no-js" is a small trick: the script in the head swaps it for "js"
+             the moment JavaScript runs, so the CSS can tell whether
+             scripting is available or not.
+-->
+<html lang="ar" dir="rtl" class="no-js">
+
+<head>
+  <!-- ======================================================================
+       1. THE ESSENTIALS
+       These two meta tags should always be the first children of <head>.
+       ====================================================================== -->
+
+  <!-- Character encoding. UTF-8 covers every alphabet, including Arabic.
+       Without it you might see broken characters instead of letters. -->
+  <meta charset="UTF-8">
+
+  <!-- Makes the page responsive on phones. Without this line, a mobile
+       browser pretends to be a 980px wide desktop and zooms everything out. -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Tells old versions of Edge and IE to use their newest engine.
+       Harmless today, still common in real projects, so you should know it. -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <!-- ======================================================================
+       2. TITLE AND SEO BASICS
+       The <title> shows up in the browser tab, in bookmarks, and as the blue
+       link in Google results. Keep it under about 60 characters.
+       ====================================================================== -->
+  <title>معسكر تطوير الواجهات الأمامية | مختبر أساسيات HTML</title>
+
+  <!-- The description is the grey text under your link in search results.
+       Aim for 140 to 160 characters that honestly describe the page. -->
+  <meta name="description" content="معسكر تدريبي مجاني لتطوير الواجهات الأمامية باللغة العربية: تعلّم HTML وCSS وJavaScript خطوة بخطوة مع أمثلة حيّة وتمارين وملعب أكواد تفاعلي.">
+
+  <!-- Who wrote the page. Not a ranking factor, but good manners. -->
+  <meta name="author" content="Mohammed Fahd Abrah">
+
+  <!-- Keywords are ignored by Google today. I keep them only so we can talk
+       about them in the recording and explain why nobody relies on them. -->
+  <meta name="keywords" content="HTML, CSS, JavaScript, تطوير الويب, الواجهات الأمامية, freeCodeCamp, دورة مجانية">
+
+  <!-- index = please show this page in results, follow = follow its links. -->
+  <meta name="robots" content="index, follow, max-image-preview:large">
+
+  <!-- The canonical URL is "the one true address" of this page. It protects
+       you from duplicate content when the same page is reachable through
+       several URLs. Change it to your own GitHub Pages address. -->
+  <link rel="canonical" href="https://mohammedfahd.github.io/frontend-bootcamp/">
+
+  <!-- Tells search engines that an English version could live elsewhere.
+       x-default is the fallback for every other language. -->
+  <link rel="alternate" hreflang="ar" href="https://mohammedfahd.github.io/frontend-bootcamp/">
+  <link rel="alternate" hreflang="x-default" href="https://mohammedfahd.github.io/frontend-bootcamp/">
+
+  <!-- ======================================================================
+       3. OPEN GRAPH
+       Facebook, LinkedIn, WhatsApp, Telegram and Discord read these tags to
+       build the preview card when someone shares your link.
+       The image works best at 1200 x 630 pixels.
+       ====================================================================== -->
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ar_AR">
+  <meta property="og:site_name" content="معسكر تطوير الواجهات الأمامية">
+  <meta property="og:title" content="معسكر تطوير الواجهات الأمامية | مختبر أساسيات HTML">
+  <meta property="og:description" content="تعلّم HTML وCSS وJavaScript من الصفر بالعربية، مع أمثلة حيّة وتمارين وملعب أكواد تفاعلي.">
+  <meta property="og:url" content="https://mohammedfahd.github.io/frontend-bootcamp/">
+  <meta property="og:image" content="https://mohammedfahd.github.io/frontend-bootcamp/assets/images/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="شعار معسكر تطوير الواجهات الأمامية مع عبارة HTML و CSS و JavaScript">
+
+  <!-- ======================================================================
+       4. TWITTER / X CARDS
+       X falls back to Open Graph for most fields, but it needs its own
+       "card" type. summary_large_image gives the big wide preview.
+       ====================================================================== -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="معسكر تطوير الواجهات الأمامية">
+  <meta name="twitter:description" content="تعلّم HTML وCSS وJavaScript من الصفر بالعربية.">
+  <meta name="twitter:image" content="https://mohammedfahd.github.io/frontend-bootcamp/assets/images/og-image.png">
+  <meta name="twitter:image:alt" content="شعار معسكر تطوير الواجهات الأمامية">
+
+  <!-- ======================================================================
+       5. BROWSER AND DEVICE APPEARANCE
+       ====================================================================== -->
+
+  <!-- Colours the address bar on mobile browsers. Two values, one for each
+       colour scheme, so it matches the theme the visitor uses. -->
+  <meta name="theme-color" content="#f5f6f7" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0a0a23" media="(prefers-color-scheme: dark)">
+
+  <!-- Tells the browser we designed for both light and dark, so built-in
+       things like scrollbars and form controls follow the theme too. -->
+  <meta name="color-scheme" content="light dark">
+
+  <!-- Stops iOS from turning every number into a phone link on its own.
+       We add real phone links ourselves with tel: when we mean it. -->
+  <meta name="format-detection" content="telephone=no">
+
+  <!-- Favicons. The SVG one is sharp at every size; the PNG is for iPhones
+       when someone adds the site to the home screen. -->
+  <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png">
+
+  <!-- The web app manifest lets people "install" the site on their phone. -->
+  <link rel="manifest" href="site.webmanifest">
+
+  <!-- ======================================================================
+       6. FONTS
+       preconnect opens the network connection to Google Fonts early, which
+       shaves time off the first paint. display=swap shows a system font
+       right away and swaps in the web font once it arrives.
+       ====================================================================== -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;700&amp;family=JetBrains+Mono:wght@400;600&amp;display=swap">
+
+  <!-- ======================================================================
+       7. OUR OWN STYLES
+       One stylesheet for the whole project. Linking it in the head means the
+       page is styled before it ever appears, so no flash of plain HTML.
+       ====================================================================== -->
+  <link rel="stylesheet" href="assets/css/style.css">
+
+  <!-- ======================================================================
+       8. THE "NO FLASH" THEME SCRIPT
+       This tiny script runs before the body is drawn. It reads the theme the
+       visitor picked last time (or their system setting) and applies it
+       straight away. If we waited for main.js, a dark-mode visitor would see
+       a white flash first. Everything else lives in main.js.
+       ====================================================================== -->
+  <script>
+    (function () {
+      var root = document.documentElement;
+      root.className = root.className.replace('no-js', 'js');
+      try {
+        var saved = localStorage.getItem('feb-theme');
+        var dark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        root.setAttribute('data-theme', saved || (dark ? 'dark' : 'light'));
+      } catch (error) {
+        root.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
+
+  <!-- The main script. "defer" downloads it in parallel and runs it only
+       after the HTML is fully parsed, so it never blocks the page and can
+       safely find every element. -->
+  <script src="assets/js/main.js" defer></script>
+
+  <!-- ======================================================================
+       9. STRUCTURED DATA (JSON-LD)
+       This block is invisible to people. It describes the page to search
+       engines in a format they understand, which can earn you richer
+       results. You can test it with Google's Rich Results Test.
+       ====================================================================== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Course",
+    "name": "معسكر تطوير الواجهات الأمامية",
+    "description": "معسكر تدريبي مجاني لتعلّم HTML وCSS وJavaScript باللغة العربية.",
+    "inLanguage": "ar",
+    "isAccessibleForFree": true,
+    "url": "https://mohammedfahd.github.io/frontend-bootcamp/",
+    "image": "https://mohammedfahd.github.io/frontend-bootcamp/assets/images/og-image.png",
+    "provider": {
+      "@type": "Organization",
+      "name": "مجتمع freeCodeCamp العربي",
+      "sameAs": "https://www.freecodecamp.org/arabic"
+    },
+    "author": {
+      "@type": "Person",
+      "name": "Mohammed Fahd Abrah"
+    },
+    "hasCourseInstance": {
+      "@type": "CourseInstance",
+      "courseMode": "online",
+      "courseWorkload": "PT40H"
+    }
+  }
+  </script>
+</head>
+
+<body id="top">
+
+  <!-- ========================================================================
+       SKIP LINK
+       The first thing a keyboard user reaches with the Tab key. It lets them
+       jump over the whole header straight to the content. It is hidden
+       until it receives focus, then it slides into view.
+       ======================================================================== -->
+  <a class="skip-link" href="#main-content">انتقل إلى المحتوى الرئيسي</a>
+
+  <!-- A thin bar at the very top that fills up as you scroll the page.
+       It is decoration only, so aria-hidden keeps screen readers quiet. -->
+  <div class="scroll-progress" aria-hidden="true">
+    <span class="scroll-progress__bar" data-scroll-progress></span>
+  </div>
+
+  <!-- ========================================================================
+       SITE HEADER
+       <header> is a semantic tag. At the top of <body> it means "the header
+       of the whole site": logo, main navigation and global controls.
+       ======================================================================== -->
+  <header class="site-header" data-site-header>
+    <div class="container site-header__inner">
+
+      <!-- The logo is a link back to the home page. The text next to the
+           image is the real accessible name, so the image itself has an
+           empty alt and gets skipped by screen readers. -->
+      <a class="brand" href="index.html" aria-label="معسكر الواجهات الأمامية، الصفحة الرئيسية">
+        <img class="brand__logo" src="assets/images/logo.svg" alt="" width="40" height="40">
+        <span class="brand__text">
+          <span class="brand__name">معسكر الواجهات</span>
+          <span class="brand__tagline">مجتمع freeCodeCamp العربي</span>
+        </span>
+      </a>
+
+      <!-- The menu button only shows on small screens (CSS handles that).
+           aria-expanded tells assistive tech whether the menu is open, and
+           aria-controls points at the element it opens. main.js keeps
+           aria-expanded in sync when you click it. -->
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" data-nav-toggle>
+        <span class="nav-toggle__bars" aria-hidden="true"></span>
+        <span class="nav-toggle__label">القائمة</span>
+      </button>
+
+      <!-- <nav> marks a block of major navigation links. The aria-label
+           gives it a name, which helps when a page has more than one nav. -->
+      <nav class="site-nav" id="site-nav" aria-label="التنقل الرئيسي" data-site-nav>
+        <ul class="site-nav__list">
+          <!-- aria-current="page" tells screen readers "you are here". -->
+          <li><a class="site-nav__link" href="index.html" aria-current="page">الرئيسية</a></li>
+          <li><a class="site-nav__link" href="#lessons">الدروس</a></li>
+          <li><a class="site-nav__link" href="#playground">ملعب الأكواد</a></li>
+          <li><a class="site-nav__link" href="#quiz">الاختبار</a></li>
+          <li><a class="site-nav__link" href="#profile">التحدي</a></li>
+          <li><a class="site-nav__link" href="about.html">من نحن</a></li>
+        </ul>
+
+        <!-- The theme switch. It is a real <button> so it works with the
+             keyboard for free. aria-pressed describes its on/off state. -->
+        <button class="theme-toggle" type="button" aria-pressed="false" data-theme-toggle>
+          <span class="theme-toggle__track" aria-hidden="true"><span class="theme-toggle__thumb"></span></span>
+          <span class="theme-toggle__label" data-theme-label>الوضع الداكن</span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ========================================================================
+       MAIN
+       There should be exactly one <main> per page. It wraps the content that
+       is unique to this page, so the header and footer stay outside of it.
+       tabindex="-1" lets the skip link move focus here correctly.
+       ======================================================================== -->
+  <main id="main-content" tabindex="-1">
+
+    <!-- ======================================================================
+         HERO
+         The big introduction at the top. Note that the page has exactly one
+         <h1>. Every other heading on the page is an h2 or deeper.
+         ====================================================================== -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="container hero__inner">
+
+        <div class="hero__content">
+          <p class="eyebrow">الساعة الأولى · قناة freeCodeCamp العربية</p>
+          <h1 id="hero-title" class="hero__title">
+            مختبر أساسيات <span class="text-accent">HTML</span>
+          </h1>
+          <p class="hero__lead">
+            أول خطوة في معسكر تطوير الواجهات الأمامية. نبني معاً صفحة كاملة من الصفر،
+            ونتعلّم كل وسم بالتجربة، ثم نضيف التنسيق بلغة CSS والتفاعل بلغة JavaScript.
+          </p>
+
+          <div class="hero__actions">
+            <a class="button button--primary" href="#lessons">ابدأ الدرس الأول</a>
+            <a class="button button--ghost" href="#playground">جرّب في ملعب الأكواد</a>
+          </div>
+
+          <!-- A description list is perfect for "label : value" pairs.
+               <dt> is the term, <dd> is its description. -->
+          <dl class="hero__stats">
+            <div class="stat">
+              <dt class="stat__label">درساً</dt>
+              <dd class="stat__value" data-count-to="14">14</dd>
+            </div>
+            <div class="stat">
+              <dt class="stat__label">مثالاً حياً</dt>
+              <dd class="stat__value" data-count-to="40">40</dd>
+            </div>
+            <div class="stat">
+              <dt class="stat__label">مجاناً بالكامل</dt>
+              <dd class="stat__value">100%</dd>
+            </div>
+          </dl>
+        </div>
+
+        <!-- <picture> lets the browser choose the best image. It tries the
+             <source> elements top to bottom and uses the first format it
+             supports (WebP is smaller), and srcset + sizes let it pick the
+             right width for the screen. The <img> at the end is the
+             fallback and is also the element that carries the alt text.
+             fetchpriority="high" because this image is visible on load. -->
+        <figure class="hero__media">
+          <picture>
+            <source type="image/webp"
+                    srcset="assets/images/hero-640.webp 640w, assets/images/hero-1280.webp 1280w"
+                    sizes="(min-width: 960px) 560px, 100vw">
+            <img src="assets/images/hero-1280.jpg"
+                 srcset="assets/images/hero-640.jpg 640w, assets/images/hero-1280.jpg 1280w"
+                 sizes="(min-width: 960px) 560px, 100vw"
+                 width="1280" height="672"
+                 alt="لوحة داكنة عليها رمز الأكواد وعنوان المعسكر مع الكلمات HTML و CSS و JavaScript"
+                 fetchpriority="high">
+          </picture>
+          <figcaption class="visually-hidden">صورة غلاف المعسكر</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         COURSE LAYOUT
+         Two columns on wide screens: a sticky table of contents on one side
+         and the lessons on the other. On phones they stack.
+         ====================================================================== -->
+    <div class="container course-layout" id="lessons">
+
+      <!-- <aside> is content that is related to the page but not part of the
+           main flow. A table of contents is a classic example. -->
+      <aside class="toc" aria-labelledby="toc-title">
+        <div class="toc__inner">
+          <h2 id="toc-title" class="toc__title">محتويات المختبر</h2>
+
+          <!-- Course progress. <progress> is a native element with built-in
+               accessibility. main.js updates its value when you tick the
+               "I finished this lesson" boxes, and saves it in your browser. -->
+          <div class="course-progress">
+            <label for="course-progress-bar" class="course-progress__label">
+              تقدّمك: <span data-course-progress-label>0 من 14</span>
+            </label>
+            <progress id="course-progress-bar" class="course-progress__bar" max="14" value="0" data-course-progress>0 من 14</progress>
+            <button class="link-button" type="button" data-progress-reset>إعادة ضبط التقدّم</button>
+          </div>
+
+          <nav aria-label="دروس المختبر">
+            <ol class="toc__list" data-toc>
+              <li><a href="#intro">ما هي HTML؟</a></li>
+              <li><a href="#structure">الهيكل الأساسي</a></li>
+              <li><a href="#text">العناوين والنصوص</a></li>
+              <li><a href="#formatting">تنسيق النصوص</a></li>
+              <li><a href="#links">الروابط</a></li>
+              <li><a href="#images">الصور</a></li>
+              <li><a href="#lists">القوائم</a></li>
+              <li><a href="#tables">الجداول</a></li>
+              <li><a href="#forms">النماذج</a></li>
+              <li><a href="#media">الصوت والفيديو</a></li>
+              <li><a href="#semantic">HTML الدلالي</a></li>
+              <li><a href="#entities">الرموز الخاصة</a></li>
+              <li><a href="#seo">الوسوم الوصفية وSEO</a></li>
+              <li><a href="#accessibility">إمكانية الوصول</a></li>
+            </ol>
+          </nav>
+        </div>
+      </aside>
+
+      <!-- The lessons column. Each lesson is a <section> with its own
+           heading, and aria-labelledby connects the section to that heading
+           so screen readers announce "region: lesson name". -->
+      <div class="lessons">
+
+        <!-- ==================================================================
+             LESSON 01 · WHAT IS HTML
+             ================================================================== -->
+        <section id="intro" class="lesson" aria-labelledby="intro-title" data-reveal>
+          <header class="lesson__header">
+            <p class="lesson__number">الدرس 01</p>
+            <h2 id="intro-title" class="lesson__title">ما هي HTML؟</h2>
+            <p class="lesson__lead">
+              HTML اختصار لـ <abbr title="HyperText Markup Language">HyperText Markup Language</abbr>،
+              أي لغة ترميز النص التشعبي. هي ليست لغة برمجة، بل لغة <strong>وصف</strong>:
+              نخبر بها المتصفح أن هذا عنوان، وهذه فقرة، وهذا رابط.
+            </p>
+          </header>
+
+          <p>مرحباً بك في عالم HTML! كل موقع زرته في حياتك مبني فوق هذه اللغة.</p>
+          <p>هذه <strong>فقرة ثانية</strong> فيها نص عريض، وهذه <em>كلمة مائلة</em> للتأكيد.</p>
+
+          <h3>ثلاث لغات، ثلاث وظائف</h3>
+          <p>اضغط على كل تبويب لترى دور كل لغة. هذا المكوّن نفسه مثال على تعاون اللغات الثلاث.</p>
+
+          <!-- ACCESSIBLE TABS
+               role="tablist", role="tab" and role="tabpanel" are ARIA roles.
+               They tell assistive tech that these buttons behave like tabs.
+               Without JavaScript all three panels simply show one after the
+               other, which is a perfectly fine fallback. main.js hides the
+               inactive panels and adds arrow-key navigation. -->
+          <div class="tabs" data-tabs>
+            <div class="tabs__list" role="tablist" aria-label="أدوار لغات الويب">
+              <button class="tabs__tab" type="button" role="tab" id="tab-html" aria-controls="panel-html" aria-selected="true">HTML</button>
+              <button class="tabs__tab" type="button" role="tab" id="tab-css" aria-controls="panel-css" aria-selected="false" tabindex="-1">CSS</button>
+              <button class="tabs__tab" type="button" role="tab" id="tab-js" aria-controls="panel-js" aria-selected="false" tabindex="-1">JavaScript</button>
+            </div>
+
+            <div class="tabs__panel" role="tabpanel" id="panel-html" aria-labelledby="tab-html" tabindex="0">
+              <h4>الهيكل</h4>
+              <p>HTML هي الهيكل العظمي للصفحة: العناوين والفقرات والصور والروابط والنماذج.</p>
+            </div>
+            <div class="tabs__panel" role="tabpanel" id="panel-css" aria-labelledby="tab-css" tabindex="0">
+              <h4>المظهر</h4>
+              <p>CSS هي الملابس: الألوان والخطوط والمسافات وترتيب العناصر على الشاشة.</p>
+            </div>
+            <div class="tabs__panel" role="tabpanel" id="panel-js" aria-labelledby="tab-js" tabindex="0">
+              <h4>السلوك</h4>
+              <p>JavaScript هي العضلات: ما يحدث عند النقر والكتابة والتمرير.</p>
+            </div>
+          </div>
+
+          <p>
+            <a class="button button--small" href="https://www.freecodecamp.org/arabic" target="_blank" rel="noopener noreferrer">تعلّم مجاناً على freeCodeCamp</a>
+          </p>
+
+          <footer class="lesson__footer">
+            <label class="lesson-check">
+              <input type="checkbox" data-lesson-check="intro">
+              <span>أنهيت هذا الدرس</span>
+            </label>
+          </footer>
+        </section>
+
+        <!-- ==================================================================
+             LESSON 02 · DOCUMENT STRUCTURE
+             Code samples live inside <pre><code>. <pre> keeps the spaces and
+             line breaks exactly as typed. Inside it we must write &lt; for <
+             and &gt; for >, otherwise the browser would treat the sample as
+             real tags and try to render them.
+             ================================================================== -->
+        <section id="structure" class="lesson" aria-labelledby="structure-title" data-reveal>
+          <header class="lesson__header">
+            <p class="lesson__number">الدرس 02</p>
+            <h2 id="structure-title" class="lesson__title">الهيكل الأساسي للصفحة</h2>
+            <p class="lesson__lead">كل صفحة HTML تبدأ بالقالب نفسه تقريباً. احفظه جيداً، فستكتبه آلاف المرات.</p>
+          </header>
+
+          <figure class="code-block">
+            <figcaption class="code-block__caption">index.html</figcaption>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="ar" dir="rtl"&gt;
+  &lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;صفحتي الأولى&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;مرحباً بالعالم&lt;/h1&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+          </figure>
+
+          <h3>ماذا يفعل كل سطر؟</h3>
+          <div class="table-wrap">
+            <table class="data-table">
+              <caption>أجزاء القالب الأساسي</caption>
+              <thead>
+                <tr>
+                  <th scope="col">الجزء</th>
+                  <th scope="col">وظيفته</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td><code>&lt;!DOCTYPE html&gt;</code></td><td>يخبر المتصفح أن الصفحة مكتوبة بمعيار HTML5.</td></tr>
+                <tr><td><code>&lt;html&gt;</code></td><td>العنصر الجذر الذي يحتوي كل شيء.</td></tr>
+                <tr><td><code>&lt;head&gt;</code></td><td>معلومات عن الصفحة لا تظهر في محتواها: الترميز والعنوان والأنماط.</td></tr>
+                <tr><td><code>&lt;body&gt;</code></td><td>كل ما يراه الزائر على الشاشة.</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- <aside> inside a section works well for a side note or tip. -->
+          <aside class="callout callout--tip" aria-label="نصيحة: اختصار القالب في VS Code">
+            <p class="callout__title">نصيحة</p>
+            <p>في VS Code اكتب علامة التعجب <kbd>!</kbd> ثم اضغط <kbd>Tab</kbd> لتحصل على هذا القالب فوراً.</p>
+          </aside>
+
+          <footer class="lesson__footer">
+            <label class="lesson-check">
+              <input type="checkbox" data-lesson-check="structure">
+              <span>أنهيت هذا الدرس</span>
+            </label>
+          </footer>
+        </section>
+
+        <!-- ==================================================================
+             LESSON 03 · HEADINGS AND TEXT
+             ================================================================== -->
+        <section id="text" class="lesson" aria-labelledby="text-title" data-reveal>
+          <header class="lesson__header">
+            <p class="lesson__number">الدرس 03</p>
+            <h2 id="text-title" class="lesson__title">العناوين والنصوص</h2>
+            <p class="lesson__lead">
+              العناوين من <code>h1</code> إلى <code>h6</code> ترسم خريطة الصفحة.
+              لا تختر العنوان بسبب حجمه، بل بسبب مكانه في الترتيب، والحجم نتحكم فيه لاحقاً بـ CSS.
+            </p>
+          </header>
+
+          <h3>الفصل الأول: الويب</h3>
+          <p>الويب يعتمد على ثلاث لغات: <strong>HTML</strong> و<em>CSS</em> وJavaScript.</p>
+
+          <h3>الفصل الثاني: المتصفح</h3>
+          <h4>محركات المتصفح</h4>
+          <p>المتصفح يقرأ الملف<br>ثم يبني شجرة العناصر<br>ثم يرسم الصفحة.</p>
+
+          <!-- This is a comment. The browser ignores it completely, but anyone
+               who opens "View source" can read it, so never put passwords or
+               secrets inside comments. -->
+
+          <h4>المسافات البيضاء</h4>
+          <!-- Try it: there are many spaces between these words in the source,
+               but the browser collapses any run of whitespace into one space. -->
+          <p>المسافات     الكثيرة     تُختصر     إلى                مسافة     واحدة.</p>
+
+          <!-- <hr> is a thematic break: a change of topic, not just a line. -->
+          <hr>
+
+          <div class="demo-grid">
+            <div class="demo-card">
+              <p class="demo-card__label">الأسطر الجديدة</p>
+              <p>استخدم <code>&lt;br&gt;</code> داخل العناوين البريدية والقصائد فقط، وليس لصنع مسافات.</p>
+            </div>
+            <div class="demo-card">
+              <p class="demo-card__label">العناوين بالترتيب</p>
+              <p>لا تقفز من <code>h2</code> إلى <code>h5</code>. قارئ الشاشة يتنقّل في الصفحة عبر العناوين.</p>
+            </div>
+          </div>
+
+          <footer class="lesson__footer">
+            <label class="lesson-check">
+              <input type="checkbox" data-lesson-check="text">
+              <span>أنهيت هذا الدرس</span>
+            </label>
+          </footer>
+        </section>
+
+        <!-- ==================================================================
+             LESSON 04 · TEXT FORMATTING
+             All of these are "inline" elements: they sit inside a line of text
+             instead of starting a new block. Each one carries a meaning, so
+             pick them for what they say, not for how they look.
+             ================================================================== -->
+        <section id="formatting" class="lesson" aria-labelledby="formatting-title" data-reveal>
+          <header class="lesson__header">
+            <p class="lesson__number">الدرس 04</p>
+            <h2 id="formatting-title" class="lesson__title">تنسيق النصوص ومعانيها</h2>
+            <p class="lesson__lead">كل وسم هنا يحمل معنى، والشكل مجرد نتيجة جانبية.</p>
+          </header>
+
+          <ul class="feature-list">
+            <li><strong>strong</strong> لأهمية عالية: <strong>لا تشارك كلمة المرور.</strong></li>
+            <li><em>em</em> للتأكيد في نبرة الكلام: أنا <em>فعلاً</em> أحب البرمجة.</li>
+            <li><mark>mark</mark> لتظليل نص مهم في سياق البحث.</li>
+            <li><small>small</small> للملاحظات الصغيرة وحقوق النشر.</li>
+            <li><del>del</del> و<ins>ins</ins> للنص المحذوف والمضاف: السعر <del>100</del> <ins>مجاني</ins>.</li>
+            <li>الأسس والمؤشرات: E = mc<sup>2</sup> وصيغة الماء H<sub>2</sub>O.</li>
+            <li><code>code</code> لمقطع برمجي قصير مثل <code>console.log()</code>.</li>
+            <li><kbd>kbd</kbd> لمفاتيح لوحة المفاتيح: <kbd>Ctrl</kbd> + <kbd>S</kbd> للحفظ.</li>
+            <li><abbr title="Cascading Style Sheets">CSS</abbr> باستخدام <code>abbr</code> للاختصارات، مرّر المؤشر لترى المعنى.</li>
+            <!-- <time> gives machines a precise date while people read a friendly one. -->
+            <li><code>time</code>: بدأ المعسكر في <time datetime="2026-10-01">الأول من أكتوبر 2026</time>.</li>
+            <li><code>q</code> لاقتباس قصير داخل السطر: قال المعلّم <q>تعلّم بالتجربة</q>.</li>
+          </ul>
+
+          <!-- <blockquote> is for a longer quote. The cite attribute stores the
+               source URL, and <cite> inside the footer names the work. -->
+          <blockquote class="quote" cite="https://www.freecodecamp.org/arabic">
+            <p>أفضل طريقة لتعلّم البرمجة هي أن تبني أشياء حقيقية، وأن تخطئ فيها، ثم تصلحها.</p>
+            <footer>من روح <cite>مجتمع freeCodeCamp</cite></footer>
+          </blockquote>
+
+          <!-- <address> is for contact information about the author or owner,
+               not for any random postal address. -->
+          <address class="address-card">
+            للتواصل مع فريق المعسكر:
+            <a href="mailto:hello@example.com">hello@example.com</a>
+          </address>
+
+          <footer class="lesson__footer">
+            <label class="lesson-check">
+              <input type="checkbox" data-lesson-check="formatting">
+              <span>أنهيت هذا الدرس</span>
+            </label>
+          </footer>
+        </section>
+
+        <!-- ==================================================================
+             LESSON 05 · LINKS
+             The <a> (anchor) tag is what makes the web a web.
+             ================================================================== -->
+        <section id="links" class="lesson" aria-labelledby="links-title" data-reveal>
+          <header class="lesson__header">
+            <p class="lesson__number">الدرس 05</p>
+            <h2 id="links-title" class="lesson__title">الروابط</h2>
+            <p class="lesson__lead">الرابط يحتاج شيئين: عنواناً في <code>href</code>، ونصاً واضحاً يصف وجهته.</p>
+          </header>
+
+          <ul class="link-list">
+            <!-- External link that opens in a new tab.
+                 rel="noopener" stops the new page from controlling this one
+                 through window.opener (a real security issue).
+                 rel="noreferrer" also hides where the visitor came from.
+                 The original file had rel="null", which means nothing. -->
+            <li>
+              <span class="link-list__type">رابط خارجي في تبويب جديد</span>
+              <a href="https://www.freecodecamp.org/arabic" target="_blank" rel="noopener noreferrer">منصة freeCodeCamp <span class="visually-hidden">(يفتح في تبويب جديد)</span></a>
+            </li>
+
+            <!-- Relative link: no domain, so it is resolved from the current
+                 folder. This is how pages inside the same project link up. -->
+            <li>
+              <span class="link-list__type">رابط نسبي لصفحة داخلية</span>
+              <a href="about.html">صفحة من نحن</a>
+            </li>
+
+            <!-- Fragment link: the # points at an element id on this page. -->
+            <li>
+              <span class="link-list__type">رابط لقسم في الصفحة نفسها</span>
+              <a href="#contact">انتقل إلى قسم التواصل</a>
+            </li>
+
+            <!-- mailto: and tel: open the mail app and the phone dialer. -->
+            <li>
+              <span class="link-list__type">رابط بريد</span>
+              <a href="mailto:hello@example.com?subject=%D8%B3%D8%A4%D8%A7%D9%84">hello@example.com</a>
+            </li>
+            <li>
+              <span class="link-list__type">رابط هاتف</span>
+              <!-- dir="ltr" keeps the phone number in the correct order inside RTL text. -->
+              <a href="tel:+60123456789" dir="ltr">+60&nbsp;12&#8209;345&nbsp;6789</a>
+            </li>
+
+            <!-- The download attribute asks the browser to save the file
+                 instead of opening it. Works for files on the same origin. -->
+            <li>
+              <span class="link-list__type">رابط تنزيل</span>
+              <a href="assets/images/og-image.png" download="frontend-bootcamp-cover.png">نزّل صورة الغلاف</a>
+            </li>
+          </ul>
+
+          <aside class="callout callout--warning" aria-label="تحذير: نصوص الروابط الغامضة">
+            <p class="callout__title">تجنّب</p>
+            <p>نصوص الروابط مثل "اضغط هنا". قارئ الشاشة قد يقرأ قائمة الروابط وحدها، فيجب أن يكون كل رابط مفهوماً بمفرده.</p>
+          </aside>
+
+          <footer class="lesson__footer">
+            <label class="lesson-check">
+              <input type="checkbox" data-lesson-check="links">
+              <span>أنهيت هذا الدرس</span>
+            </label>
+          </footer>
+        </section>
+
+        <!-- ==================================================================
+             LESSON 06 · IMAGES
+             Always give images width and height. The browser then reserves
+             the right space before the file arrives, so the page does not
+             jump around while loading (Google calls this layout shift, CLS).
+             ================================================================== -->
+        <section id="images" class="lesson" aria-labelledby="images-title" data-reveal>
+          <header class="lesson__header">
+            <p class="lesson__number">الدرس 06</p>
+            <h2 id="images-title" class="lesson__title">الصور</h2>
+            <p class="lesson__lead">الصورة عنصر فارغ لا يُغلق، وأهم سماتها <code>src</code> و<code>alt</code>.</p>
+          </header>
+
+          <div class="demo-grid">
+            <!-- <figure> groups media with its caption. <figcaption> is the
+                 visible caption and is read together with the image. -->
+            <figure class="demo-card">
+              <p class="demo-card__label">مسار مطلق (من الإنترنت)</p>
+              <!-- loading="lazy" waits until the image is near the viewport
+                   before downloading it. Great for images lower on the page. -->
+              <img src="https://cdn.freecodecamp.org/platform/universal/fcc_primary.svg"
+                   alt="شعار freeCodeCamp"
+                   width="300" height="56" loading="lazy" class="demo-image demo-image--contain">
+              <figcaption>الصورة مستضافة على خادم آخر، والمسار يبدأ بـ https.</figcaption>
+            </figure>
+
+            <figure class="demo-card">
+              <p class="demo-card__label">مسار نسبي (من مجلد المشروع)</p>
+              <img src="assets/images/logo.svg" alt="شعار المعسكر: رمز الأكواد باللونين الذهبي والأزرق"
+                   width="120" height="120" loading="lazy" class="demo-image demo-image--contain">
+              <figcaption>المسار <code>assets/images/logo.svg</code> يبدأ من مكان الملف الحالي.</figcaption>
+            </figure>
+
+            <figure class="demo-card">
+              <p class="demo-card__label">مسار خاطئ (يظهر نص alt)</p>
+              <!-- This path is wrong on purpose. Notice how the alt text is
+                   shown instead. That is exactly what a blind visitor "sees"
+                   for every image, so write alt text like you mean it. -->
+              <img src="photo-not-found.jpg" alt="هذه الصورة غير متوفرة فيظهر نص alt مكانها"
+                   width="300" height="120" class="demo-image demo-image--broken">
+              <figcaption>الصورة غير موجودة عمداً لنرى دور النص البديل.</figcaption>
+            </figure>
+
+            <figure class="demo-card">
+              <p class="demo-card__label">صورة داخل رابط</p>
+              <!-- When an image is the only thing inside a link, its alt text
+                   becomes the link name, so describe the destination. -->
+              <a href="https://www.wikipedia.org/" target="_blank" rel="noopener noreferrer">
+                <img src="assets/images/avatar.svg" alt="اذهب إلى موسوعة ويكيبيديا" width="96" height="96" loading="lazy" class="demo-image demo-image--contain">
+              </a>
+              <figcaption>النقر على الصورة يفتح ويكيبيديا.</figcaption>
+            </figure>
+          </div>
+
+          <h3>متى أترك alt فارغاً؟</h3>
+          <p>
+            إذا كانت الصورة للزينة فقط، اكتب <code>alt=""</code> فارغاً ولا تحذف السمة نفسها.
+            حذفها يجعل بعض قارئات الشاشة تقرأ اسم الملف بصوت عالٍ.
+          </p>
+
+          <footer class="lesson__footer">
+            <label class="lesson-check">
+              <input type="checkbox" data-lesson-check="images">
+              <span>أنهيت هذا الدرس</span>
+            </label>
+          </footer>
+        </section>
+
+        <!-- ==================================================================
+             LESSON 07 · LISTS
+             ================================================================== -->
+        <section id="lists" class="lesson" aria-labelledby="lists-title" data-reveal>
+          <header class="lesson__header">
+            <p class="lesson__number">الدرس 07</p>
+            <h2 id="lists-title" class="lesson__title">القوائم</h2>
+            <p class="lesson__lead">ثلاثة أنواع: غير مرتبة <code>ul</code>، ومرتبة <code>ol</code>، ووصفية <code>dl</code>.</p>
+          </header>
+
+          <div class="demo-grid">
+            <div class="demo-card">
+              <h3 class="demo-card__label">ما تحتاجه للبدء (قائمة متداخلة)</h3>
+              <ul>
+                <li>متصفح حديث</li>
+                <li>فضول ورغبة في التجربة</li>
+                <!-- A nested list must live INSIDE an <li>, never directly
+                     inside the outer <ul>. -->
+                <li>محرر أكواد
+                  <ul>
+                    <li>VS Code</li>
+                    <li>Sublime Text</li>
+                    <li>Notepad++</li>
+                    <li>Zed</li>
+                  </ul>
+                </li>
+                <li>فنجان قهوة</li>
+              </ul>
+            </div>
+
+            <div class="demo-card">
+              <h3 class="demo-card__label">خطوات نشر موقعك (عدّ تنازلي)</h3>
+              <!-- reversed counts down: 3, 2, 1. -->
+              <ol reversed>
+                <li>اكتب ملف index.html</li>
+                <li>ارفعه إلى GitHub</li>
+                <li>فعّل GitHub Pages</li>
+              </ol>
+            </div>
+
+            <div class="demo-card">
+              <h3 class="demo-card__label">قائمة تبدأ من 4</h3>
+              <!-- start picks the first number. Handy when a list is split
+                   by a paragraph and continues afterwards. -->
+              <ol start="4">
+                <li>الخطوة الرابعة</li>
+                <li>الخطوة الخامسة</li>
+              </ol>
+            </div>
+
+            <div class="demo-card">
+              <h3 class="demo-card__label">ترتيب عكسي بالحروف</h3>
+              <!-- type changes the marker: 1, a, A, i or I. -->
+              <ol type="a" reversed>
+                <li>Python</li>
+                <li>JavaScript</li>
+                <li>HTML</li>
+              </ol>
+            </div>
+          </div>
+
+          <h3>قائمة وصفية: مصطلحات اليوم</h3>
+          <!-- <dl> pairs terms with definitions. Think glossary or FAQ. -->
+          <dl class="glossary">
+            <dt>وسم (Tag)</dt>
+            <dd>الكلمة بين علامتي الأصغر والأكبر، مثل <code>&lt;p&gt;</code>.</dd>
+            <dt>عنصر (Element)</dt>
+            <dd>الوسم الافتتاحي والمحتوى والوسم الختامي معاً.</dd>
+            <dt>سمة (Attribute)</dt>
+            <dd>معلومة إضافية داخل الوسم الافتتاحي، مثل <code>href</code> في الروابط.</dd>
+          </dl>
+
+          <footer class="lesson__footer">
+            <label class="lesson-check">
+              <input type="checkbox" data-lesson-check="lists">
+              <span>أنهيت هذا الدرس</span>
+            </label>
+          </footer>
+        </section>
+
+        <!-- ==================================================================
+             LESSON 08 · TABLES
+             Tables are for tabular data only, never for page layout. That was
+             a 1990s habit and it is very bad for accessibility.
+             ================================================================== -->
+        <section id="tables" class="lesson" aria-labelledby="tables-title" data-reveal>
+          <header class="lesson__header">
+            <p class="lesson__number">الدرس 08</p>
+            <h2 id="tables-title" class="lesson__title">الجداول</h2>
+            <p class="lesson__lead">للبيانات المرتبة في صفوف وأعمدة فقط، وليس لتخطيط الصفحة.</p>
+          </header>
+
+          <!-- The wrapper lets wide tables scroll sideways on phones instead
+               of breaking the page width. tabindex="0" lets keyboard users
+               focus it and scroll with the arrow keys, and aria-labelledby
+               gives the scroll area a name taken from the table caption. -->
+          <section class="table-wrap" tabindex="0" aria-labelledby="schedule-caption">
+            <table class="data-table">
+              <caption id="schedule-caption">جدول الدورة: دمج الخلايا</caption>
+              <thead>
+                <tr>
+                  <!-- scope="col" says this header describes the column below it. -->
+                  <th scope="col">الساعة</th>
+                  <th scope="col">الموضوع</th>
+                  <th scope="col">المدة</th>
+                  <th scope="col">المستوى</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <!-- rowspan="2" stretches this cell down over two rows. -->
+                  <th scope="rowgroup" rowspan="2">الأولى</th>
+                  <td>الأساسيات</td>
+                  <td>30 دقيقة</td>
+                  <td>مبتدئ</td>
+                </tr>
+                <tr>
+                  <td>الجداول والدلالية</td>
+                  <td>30 دقيقة</td>
+                  <td>مبتدئ</td>
+                </tr>
+                <tr>
+                  <th scope="row">الثانية</th>
+                  <!-- colspan="2" stretches this cell across two columns. -->
+                  <td colspan="2">النماذج والوسائط</td>
+                  <td>متوسط</td>
+                </tr>
+              </tbody>
+              <!-- <tfoot> holds summary rows such as totals. -->
+              <tfoot>
+                <tr>
+                  <th scope="row">المجموع</th>
+                  <td colspan="3">ساعتان</td>
+                </tr>
+              </tfoot>
+            </table>
+          </section>
+
+          <h3>جدول تفاعلي: خطة المعسكر الكاملة</h3>
+          <p>اكتب في خانة البحث لتصفية الصفوف، أو اضغط على عنوان أي عمود لترتيبه.</p>
+
+          <!-- A search input that filters the table below. The label is
+               visually hidden but still read by screen readers. -->
+          <div class="table-tools">
+            <label for="curriculum-filter" class="visually-hidden">ابحث في خطة المعسكر</label>
+            <input id="curriculum-filter" class="input" type="search" placeholder="ابحث عن موضوع أو أسبوع..." data-table-filter="curriculum-table" autocomplete="off">
+            <p class="table-tools__count" aria-live="polite" data-table-count="curriculum-table"></p>
+          </div>
+
+          <section class="table-wrap" tabindex="0" aria-labelledby="curriculum-caption">
+            <table class="data-table data-table--sortable" id="curriculum-table" data-sortable>
+              <caption id="curriculum-caption">خطة المعسكر أسبوعاً بأسبوع</caption>
+              <thead>
+                <tr>
+                  <!-- Each header holds a button so sorting works with the
+                       keyboard. aria-sort is updated by main.js. -->
+                  <th scope="col" aria-sort="none"><button type="button" class="sort-button" data-sort-type="number">الأسبوع</button></th>
+                  <th scope="col" aria-sort="none"><button type="button" class="sort-button" data-sort-type="text">الموضوع</button></th>
+                  <th scope="col" aria-sort="none"><button type="button" class="sort-button" data-sort-type="number">الساعات</button></th>
+                  <th scope="col" aria-sort="none"><button type="button" class="sort-button" data-sort-type="text">المستوى</button></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>1</td><td>أساسيات HTML</td><td>4</td><td>مبتدئ</td></tr>
+                <tr><td>2</td><td>النماذج والوسائط وHTML الدلالي</td><td>4</td><td>مبتدئ</td></tr>
+                <tr><td>3</td><td>أساسيات CSS والمحددات</td><td>5</td><td>مبتدئ</td></tr>
+                <tr><td>4</td><td>نموذج الصندوق والتخطيط بـ Flexbox</td><td>5</td><td>متوسط</td></tr>
+                <tr><td>5</td><td>Grid والتصميم المتجاوب</td><td>5</td><td>متوسط</td></tr>
+                <tr><td>6</td><td>أساسيات JavaScript</td><td>6</td><td>مبتدئ</td></tr>
+                <tr><td>7</td><td>التعامل مع DOM والأحداث</td><td>6</td><td>متوسط</td></tr>
+                <tr><td>8</td><td>Fetch والتخزين المحلي والمشروع النهائي</td><td>5</td><td>متقدم</td></tr>
+              </tbody>
+            </table>
+          </section>
+          <p class="table-empty" data-table-empty="curriculum-table" hidden>لا توجد نتائج مطابقة لبحثك.</p>
+
+          <footer class="lesson__footer">
+            <label class="lesson-check">
+              <input type="checkbox" data-lesson-check="tables">
+              <span>أنهيت هذا الدرس</span>
+            </label>
+          </footer>
+        </section>
+
+        <!-- ==================================================================
+             LESSON 09 · FORMS
+             Forms are how the web listens. Three rules that save you hours:
+               1. Every input needs a <label>, linked with for="" and id="".
+               2. Group related controls in <fieldset> with a <legend>.
+               3. Use the right input type, phones show the right keyboard.
+             Notice there is no "novalidate" on the form below. main.js adds it
+             when it runs, then shows friendlier Arabic messages under each
+             field. If JavaScript is off, the attribute never gets added and the
+             browser's own validation bubbles still protect the form.
+             ================================================================== -->
+        <section id="forms" class="lesson" aria-labelledby="forms-title" data-reveal>
+          <header class="lesson__header">
+            <p class="lesson__number">الدرس 09</p>
+            <h2 id="forms-title" class="lesson__title">النماذج</h2>
+            <p class="lesson__lead">نموذج تسجيل حقيقي يستخدم أهم أنواع الحقول وقواعد التحقق المدمجة في المتصفح.</p>
+          </header>
+
+          <!-- action is where the data would be sent. We have no server, so
+               main.js stops the real submit and shows a summary instead. -->
+          <form class="form" action="#" method="post" data-validate aria-describedby="form-note">
+            <p id="form-note" class="form__note">الحقول المعلّمة بنجمة <span aria-hidden="true">*</span> مطلوبة.</p>
+
+            <fieldset class="form__group">
+              <legend>بياناتك الشخصية</legend>
+
+              <div class="field">
+                <label for="full-name">الاسم الكامل <span class="required" aria-hidden="true">*</span></label>
+                <!-- required, minlength and autocomplete are all built-in
+                     helpers. autocomplete="name" lets the browser fill it. -->
+                <input id="full-name" name="fullName" type="text" class="input" required minlength="3" autocomplete="name" aria-describedby="full-name-error">
+                <p class="field__error" id="full-name-error" aria-live="polite"></p>
+              </div>
+
+              <div class="field">
+                <label for="email">البريد الإلكتروني <span class="required" aria-hidden="true">*</span></label>
+                <!-- type="email" checks the format and shows the @ keyboard. -->
+                <input id="email" name="email" type="email" class="input" required autocomplete="email" dir="ltr" aria-describedby="email-error">
+                <p class="field__error" id="email-error" aria-live="polite"></p>
+              </div>
+
+              <div class="field">
+                <label for="phone">رقم الهاتف</label>
+                <!-- pattern takes a regular expression. title explains it. -->
+                <input id="phone" name="phone" type="tel" class="input" autocomplete="tel" dir="ltr" pattern="^\+?[0-9\s\-]{7,15}$" title="أرقام فقط، من 7 إلى 15 خانة" aria-describedby="phone-hint phone-error">
+                <p class="field__hint" id="phone-hint">مثال: ‎+60 12 345 6789</p>
+                <p class="field__error" id="phone-error" aria-live="polite"></p>
+              </div>
+
+              <div class="field">
+                <label for="password">كلمة المرور <span class="required" aria-hidden="true">*</span></label>
+                <div class="input-group">
+                  <input id="password" name="password" type="password" class="input" required minlength="8" autocomplete="new-password" dir="ltr" aria-describedby="password-strength password-error">
+                  <!-- main.js swaps the input type between password and text. -->
+                  <button type="button" class="input-group__button" data-password-toggle="password" aria-pressed="false">إظهار</button>
+                </div>
+                <!-- <meter> shows a value inside a known range, a good fit for
+                     password strength. It is not the same as <progress>. -->
+                <div class="strength" id="password-strength">
+                  <meter min="0" max="4" low="2" high="3" optimum="4" value="0" data-password-meter="password"></meter>
+                  <span class="strength__text" data-password-text="password">ثماني خانات على الأقل</span>
+                </div>
+                <p class="field__error" id="password-error" aria-live="polite"></p>
+              </div>
+
+              <div class="field">
+                <label for="birthdate">تاريخ الميلاد</label>
+                <input id="birthdate" name="birthdate" type="date" class="input" min="1940-01-01" max="2015-12-31">
+              </div>
+            </fieldset>
+
+            <fieldset class="form__group">
+              <legend>تفضيلات التعلّم</legend>
+
+              <!-- Radio buttons share one name, so only one can be picked. -->
+              <fieldset class="choice-group">
+                <legend>مستواك الحالي <span class="required" aria-hidden="true">*</span></legend>
+                <label class="choice"><input type="radio" name="level" value="beginner" required> مبتدئ تماماً</label>
+                <label class="choice"><input type="radio" name="level" value="some"> جرّبت قليلاً</label>
+                <label class="choice"><input type="radio" name="level" value="intermediate"> متوسط</label>
+              </fieldset>
+
+              <!-- Checkboxes allow any number of choices. -->
+              <fieldset class="choice-group">
+                <legend>ما الذي يهمّك أكثر؟</legend>
+                <label class="choice"><input type="checkbox" name="topics" value="html" checked> HTML</label>
+                <label class="choice"><input type="checkbox" name="topics" value="css"> CSS</label>
+                <label class="choice"><input type="checkbox" name="topics" value="js"> JavaScript</label>
+              </fieldset>
+
+              <div class="field">
+                <label for="country">الدولة</label>
+                <!-- <optgroup> groups long option lists under a heading. -->
+                <select id="country" name="country" class="input">
+                  <option value="">اختر دولتك</option>
+                  <optgroup label="آسيا">
+                    <option value="MY">ماليزيا</option>
+                    <option value="SA">السعودية</option>
+                    <option value="AE">الإمارات</option>
+                    <option value="YE">اليمن</option>
+                  </optgroup>
+                  <optgroup label="أفريقيا">
+                    <option value="EG">مصر</option>
+                    <option value="MA">المغرب</option>
+                    <option value="SD">السودان</option>
+                  </optgroup>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="editor">محررك المفضل</label>
+                <!-- <datalist> gives suggestions but still allows free text. -->
+                <input id="editor" name="editor" type="text" class="input" list="editor-options" autocomplete="off">
+                <datalist id="editor-options">
+                  <option value="VS Code"></option>
+                  <option value="Sublime Text"></option>
+                  <option value="Zed"></option>
+                  <option value="Vim"></option>
+                </datalist>
+              </div>
+
+              <div class="field">
+                <!-- <output> shows a live value. It sits next to the label,
+                     not inside it, so the label points at one control only. -->
+                <div class="field__row">
+                  <label for="hours">ساعات الدراسة أسبوعياً</label>
+                  <output for="hours" data-range-output="hours">5</output>
+                </div>
+                <input id="hours" name="hours" type="range" min="1" max="20" step="1" value="5" class="range">
+              </div>
+
+              <div class="field field--inline">
+                <label for="favorite-color">لونك المفضل</label>
+                <input id="favorite-color" name="favoriteColor" type="color" value="#f1be32" class="color-input">
+              </div>
+
+              <div class="field">
+                <label for="cv">أرفق سيرتك الذاتية (اختياري)</label>
+                <!-- accept limits the file picker to certain types. -->
+                <input id="cv" name="cv" type="file" class="input input--file" accept=".pdf,.doc,.docx">
+              </div>
+
+              <div class="field">
+                <label for="goal">ما هدفك من المعسكر؟</label>
+                <!-- maxlength caps the text. main.js shows a live counter. -->
+                <textarea id="goal" name="goal" class="input textarea" rows="4" maxlength="280" data-char-count aria-describedby="goal-count"></textarea>
+                <p class="field__hint" id="goal-count" data-char-count-output="goal" aria-live="polite">0 / 280</p>
+              </div>
+            </fieldset>
+
+            <div class="field">
+              <label class="choice">
+                <input type="checkbox" name="terms" required>
+                أوافق على <a href="about.html#values">قيم المجتمع</a> <span class="required" aria-hidden="true">*</span>
+              </label>
+            </div>
+
+            <div class="form__actions">
+              <button type="submit" class="button button--primary">سجّل الآن</button>
+              <button type="reset" class="button button--ghost">مسح الحقول</button>
+            </div>
+          </form>
+
+          <footer class="lesson__footer">
+            <label class="lesson-check">
+              <input type="checkbox" data-lesson-check="forms">
+              <span>أنهيت هذا الدرس</span>
+            </label>
+          </footer>
+        </section>
+
+        <!-- ==================================================================
+             LESSON 10 · AUDIO, VIDEO AND EMBEDS
+             The sample media files are public domain clips hosted by MDN.
+             ================================================================== -->
+        <section id="media" class="lesson" aria-labelledby="media-title" data-reveal>
+          <header class="lesson__header">
+            <p class="lesson__number">الدرس 10</p>
+            <h2 id="media-title" class="lesson__title">الصوت والفيديو والتضمين</h2>
+            <p class="lesson__lead">وسوم <code>video</code> و<code>audio</code> و<code>iframe</code> تجلب الوسائط والمواقع الأخرى إلى صفحتك.</p>
+          </header>
+
+          <div class="demo-grid">
+            <figure class="demo-card">
+              <p class="demo-card__label">فيديو</p>
+              <!-- controls shows the play bar. preload="metadata" fetches only
+                   the length and first frame until the user presses play.
+                   playsinline stops iPhones from forcing full screen.
+                   The text inside is shown only by very old browsers. -->
+              <video class="media" controls preload="metadata" playsinline width="640" height="360">
+                <source src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4" type="video/mp4">
+                <source src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.webm" type="video/webm">
+                متصفحك لا يدعم وسم الفيديو.
+              </video>
+              <figcaption>زهرة تتفتح. مقطع من الملكية العامة.</figcaption>
+            </figure>
+
+            <figure class="demo-card">
+              <p class="demo-card__label">صوت</p>
+              <audio class="media media--audio" controls preload="none">
+                <source src="https://interactive-examples.mdn.mozilla.net/media/cc0-audio/t-rex-roar.mp3" type="audio/mpeg">
+                متصفحك لا يدعم وسم الصوت.
+              </audio>
+              <figcaption>زئير ديناصور قصير. تذكّر: لا تشغّل الصوت تلقائياً أبداً.</figcaption>
+            </figure>
+          </div>
+
+          <figure class="demo-card demo-card--wide">
+            <p class="demo-card__label">تضمين خريطة باستخدام iframe</p>
+            <!-- An iframe is a window into another page. title is required
+                 for accessibility. loading="lazy" delays it until needed,
+                 and referrerpolicy limits what we tell the other site. -->
+            <iframe class="embed"
+                    title="خريطة كوالالمبور على OpenStreetMap"
+                    src="https://www.openstreetmap.org/export/embed.html?bbox=101.6582%2C3.1206%2C101.7279%2C3.1717&amp;layer=mapnik"
+                    width="800" height="360" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <figcaption>مدينة كوالالمبور، حيث سُجّلت هذه الدروس.</figcaption>
+          </figure>
+
+          <footer class="lesson__footer">
+            <label class="lesson-check">
+              <input type="checkbox" data-lesson-check="media">
+              <span>أنهيت هذا الدرس</span>
+            </label>
+          </footer>
+        </section>
+
+        <!-- ==================================================================
+             LESSON 11 · SEMANTIC HTML
+             A div means nothing. A <nav> means navigation, an <article> means
+             a self-contained piece you could publish on its own, and so on.
+             Semantic tags help screen readers, search engines and the next
+             developer who reads your code.
+             ================================================================== -->
+        <section id="semantic" class="lesson" aria-labelledby="semantic-title" data-reveal>
+          <header class="lesson__header">
+            <p class="lesson__number">الدرس 11</p>
+            <h2 id="semantic-title" class="lesson__title">HTML الدلالي</h2>
+            <p class="lesson__lead">اختر الوسم الذي يصف المعنى، وليس الوسم الذي يعطيك الشكل.</p>
+          </header>
+
+          <!-- A small diagram of a typical page, built with real semantic
+               tags. It is decorative, the list after it says the same thing
+               in words, so screen readers skip it. -->
+          <div class="layout-diagram" aria-hidden="true">
+            <div class="layout-diagram__box layout-diagram__box--header">header</div>
+            <div class="layout-diagram__box layout-diagram__box--nav">nav</div>
+            <div class="layout-diagram__box layout-diagram__box--main">main
+              <span class="layout-diagram__inner">section</span>
+              <span class="layout-diagram__inner">article</span>
+            </div>
+            <div class="layout-diagram__box layout-diagram__box--aside">aside</div>
+            <div class="layout-diagram__box layout-diagram__box--footer">footer</div>
+          </div>
+
+          <div class="demo-grid">
+            <!-- Note: <header> and <footer> are not only for the top and bottom
+                 of the page. An article can have its own header and footer.
+                 The original lab had an empty <footer></footer><header></header>
+                 pair here; this is the proper way to show that idea. -->
+            <article class="article-card">
+              <header>
+                <h3 class="article-card__title">لماذا أتعلم HTML أولاً؟</h3>
+                <p class="article-card__meta">نُشر في <time datetime="2026-10-05">5 أكتوبر 2026</time></p>
+              </header>
+              <p>لأنها الأساس الذي تُبنى عليه كل صفحة ويب، وكل ما بعدها يعتمد عليها.</p>
+              <footer class="article-card__footer">الوسوم: مبتدئ، HTML</footer>
+            </article>
+
+            <article class="article-card">
+              <header>
+                <h3 class="article-card__title">ما الفرق بين HTML وCSS؟</h3>
+                <p class="article-card__meta">نُشر في <time datetime="2026-10-07">7 أكتوبر 2026</time></p>
+              </header>
+              <p>HTML للهيكل والمعنى، وCSS للمظهر والتخطيط.</p>
+              <footer class="article-card__footer">الوسوم: HTML، CSS</footer>
+            </article>
+
+            <aside class="article-card article-card--aside" aria-labelledby="related-title">
+              <h3 id="related-title" class="article-card__title">مقالات ذات صلة</h3>
+              <ul>
+                <li><a href="#formatting">تنسيق النصوص ومعانيها</a></li>
+                <li><a href="#accessibility">قائمة فحص إمكانية الوصول</a></li>
+              </ul>
+            </aside>
+          </div>
+
+          <h3>عناصر تفاعلية بدون JavaScript</h3>
+          <p>الوسمان <code>details</code> و<code>summary</code> يصنعان قائمة قابلة للطي من HTML فقط.</p>
+
+          <div class="accordion-tools">
+            <button type="button" class="link-button" data-accordion-toggle="faq-semantic">فتح الكل / إغلاق الكل</button>
+          </div>
+
+          <div class="accordion" id="faq-semantic">
+            <details class="accordion__item" open>
+              <summary>هل يمكن أن يحتوي الموقع على أكثر من header؟</summary>
+              <p>نعم. واحد للموقع كله، وواحد داخل كل article أو section إذا احتجت.</p>
+            </details>
+            <details class="accordion__item">
+              <summary>هل أستخدم section أم div؟</summary>
+              <p>استخدم section عندما يكون للجزء عنوان خاص به ومعنى واضح. وdiv للتجميع من أجل التنسيق فقط.</p>
+            </details>
+            <details class="accordion__item">
+              <summary>كم مرة أستخدم main؟</summary>
+              <p>مرة واحدة فقط في كل صفحة.</p>
+            </details>
+          </div>
+
+          <h3>نافذة حوار أصلية</h3>
+          <p>الوسم <code>dialog</code> يعطيك نافذة منبثقة جاهزة، تُغلق بمفتاح <kbd>Esc</kbd> ويبقى التركيز داخلها.</p>
+          <button type="button" class="button button--small" data-dialog-open="info-dialog">افتح نافذة الحوار</button>
+
+          <!-- Correct and incorrect nesting, kept from the original lab:
+               Wrong:   <p><strong>text</p></strong>
+               Right:   <p><strong>text</strong></p>
+               Tags close in the reverse order they opened, like boxes inside boxes. -->
+
+          <footer class="lesson__footer">
+            <label class="lesson-check">
+              <input type="checkbox" data-lesson-check="semantic">
+              <span>أنهيت هذا الدرس</span>
+            </label>
+          </footer>
+        </section>
+
+        <!-- ==================================================================
+             LESSON 12 · ENTITIES
+             Some characters have a special meaning in HTML (< > &). To show
+             them as text we write them as entities.
+             ================================================================== -->
+        <section id="entities" class="lesson" aria-labelledby="entities-title" data-reveal>
+          <header class="lesson__header">
+            <p class="lesson__number">الدرس 12</p>
+            <h2 id="entities-title" class="lesson__title">الرموز الخاصة (Entities)</h2>
+            <p class="lesson__lead">كيف تكتب علامة <code>&lt;</code> في صفحتك دون أن يظنها المتصفح بداية وسم؟</p>
+          </header>
+
+          <div class="table-wrap">
+            <table class="data-table">
+              <caption>أشهر الرموز الخاصة</caption>
+              <thead>
+                <tr>
+                  <th scope="col">الرمز</th>
+                  <th scope="col">ما تكتبه</th>
+                  <th scope="col">الاستخدام</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>&lt;</td><td><code>&amp;lt;</code></td><td>أصغر من</td></tr>
+                <tr><td>&gt;</td><td><code>&amp;gt;</code></td><td>أكبر من</td></tr>
+                <tr><td>&amp;</td><td><code>&amp;amp;</code></td><td>علامة العطف</td></tr>
+                <tr><td>&quot;</td><td><code>&amp;quot;</code></td><td>علامة تنصيص داخل قيمة سمة</td></tr>
+                <tr><td>&copy;</td><td><code>&amp;copy;</code></td><td>حقوق النشر</td></tr>
+                <tr><td>(مسافة)</td><td><code>&amp;nbsp;</code></td><td>مسافة لا تنكسر، تبقي كلمتين على السطر نفسه</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <footer class="lesson__footer">
+            <label class="lesson-check">
+              <input type="checkbox" data-lesson-check="entities">
+              <span>أنهيت هذا الدرس</span>
+            </label>
+          </footer>
+        </section>
+
+        <!-- ==================================================================
+             LESSON 13 · META TAGS AND SEO
+             This lesson explains the <head> of THIS file. Scroll back up in
+             the source code and compare as you read.
+             ================================================================== -->
+        <section id="seo" class="lesson" aria-labelledby="seo-title" data-reveal>
+          <header class="lesson__header">
+            <p class="lesson__number">الدرس 13</p>
+            <h2 id="seo-title" class="lesson__title">الوسوم الوصفية وتحسين الظهور (SEO)</h2>
+            <p class="lesson__lead">ما في داخل <code>head</code> لا يراه الزائر، لكن تراه محركات البحث ومنصات التواصل.</p>
+          </header>
+
+          <div class="table-wrap">
+            <table class="data-table">
+              <caption>الوسوم المستخدمة في رأس هذه الصفحة</caption>
+              <thead>
+                <tr>
+                  <th scope="col">الوسم</th>
+                  <th scope="col">من يقرؤه</th>
+                  <th scope="col">الفائدة</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td><code>title</code></td><td>المتصفح ومحركات البحث</td><td>عنوان التبويب والرابط في نتائج البحث.</td></tr>
+                <tr><td><code>meta description</code></td><td>محركات البحث</td><td>الوصف تحت الرابط في النتائج.</td></tr>
+                <tr><td><code>link canonical</code></td><td>محركات البحث</td><td>العنوان الأصلي للصفحة لتجنّب التكرار.</td></tr>
+                <tr><td><code>og:*</code></td><td>فيسبوك وواتساب ولينكدإن</td><td>بطاقة المعاينة عند مشاركة الرابط.</td></tr>
+                <tr><td><code>twitter:*</code></td><td>منصة X</td><td>نوع البطاقة وصورتها.</td></tr>
+                <tr><td><code>theme-color</code></td><td>متصفحات الجوال</td><td>لون شريط العنوان.</td></tr>
+                <tr><td><code>application/ld+json</code></td><td>محركات البحث</td><td>بيانات منظمة لنتائج أغنى.</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <aside class="callout callout--tip" aria-label="تجربة: بطاقة المعاينة">
+            <p class="callout__title">جرّب بنفسك</p>
+            <p>بعد نشر الموقع، الصق رابطه في محادثة واتساب أو تيليجرام وشاهد بطاقة المعاينة التي صنعتها وسوم Open Graph.</p>
+          </aside>
+
+          <footer class="lesson__footer">
+            <label class="lesson-check">
+              <input type="checkbox" data-lesson-check="seo">
+              <span>أنهيت هذا الدرس</span>
+            </label>
+          </footer>
+        </section>
+
+        <!-- ==================================================================
+             LESSON 14 · ACCESSIBILITY
+             ================================================================== -->
+        <section id="accessibility" class="lesson" aria-labelledby="a11y-title" data-reveal>
+          <header class="lesson__header">
+            <p class="lesson__number">الدرس 14</p>
+            <h2 id="a11y-title" class="lesson__title">إمكانية الوصول (Accessibility)</h2>
+            <p class="lesson__lead">موقعك يجب أن يعمل للجميع: بالفأرة ولوحة المفاتيح وقارئ الشاشة وعلى الشاشات الصغيرة.</p>
+          </header>
+
+          <p>جرّب الآن: اضغط <kbd>Tab</kbd> عدة مرات من أعلى الصفحة. أول ما يظهر هو رابط "انتقل إلى المحتوى الرئيسي".</p>
+
+          <!-- A checklist built from real checkboxes. main.js saves it too. -->
+          <ul class="checklist">
+            <li><label><input type="checkbox" data-persist="a11y-1"> لكل صورة نص بديل مناسب أو alt فارغ للزينة.</label></li>
+            <li><label><input type="checkbox" data-persist="a11y-2"> لكل حقل في النموذج label مرتبط به.</label></li>
+            <li><label><input type="checkbox" data-persist="a11y-3"> العناوين مرتبة دون قفز بين المستويات.</label></li>
+            <li><label><input type="checkbox" data-persist="a11y-4"> يمكن الوصول إلى كل شيء بلوحة المفاتيح.</label></li>
+            <li><label><input type="checkbox" data-persist="a11y-5"> التباين بين النص والخلفية كافٍ للقراءة.</label></li>
+            <li><label><input type="checkbox" data-persist="a11y-6"> لغة الصفحة محددة في وسم html.</label></li>
+          </ul>
+
+          <footer class="lesson__footer">
+            <label class="lesson-check">
+              <input type="checkbox" data-lesson-check="accessibility">
+              <span>أنهيت هذا الدرس</span>
+            </label>
+          </footer>
+        </section>
+
+      </div>
+    </div>
+
+    <!-- ======================================================================
+         PLAYGROUND
+         Type HTML on one side, see it rendered on the other. The preview is
+         an <iframe> with the sandbox attribute, which blocks scripts, forms
+         and popups inside it. Always sandbox code you did not write.
+         ====================================================================== -->
+    <section id="playground" class="band" aria-labelledby="playground-title">
+      <div class="container">
+        <header class="section-heading">
+          <p class="eyebrow">مساحة تجريبية</p>
+          <h2 id="playground-title">ملعب الأكواد</h2>
+          <p>اكتب أي HTML في المحرر واضغط "تشغيل". جرّب أن تكسر الأشياء، فهكذا نتعلم.</p>
+        </header>
+
+        <div class="playground" data-playground>
+          <div class="playground__pane">
+            <label for="playground-input" class="playground__label">المحرر</label>
+            <!-- spellcheck="false" stops red underlines under every tag. -->
+            <textarea id="playground-input" class="playground__editor" dir="ltr" spellcheck="false" data-playground-input>&lt;h1&gt;Hello, Bootcamp!&lt;/h1&gt;
+&lt;p&gt;Edit me and press &lt;strong&gt;Run&lt;/strong&gt;.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;HTML&lt;/li&gt;
+  &lt;li&gt;CSS&lt;/li&gt;
+  &lt;li&gt;JavaScript&lt;/li&gt;
+&lt;/ul&gt;</textarea>
+            <div class="playground__actions">
+              <button type="button" class="button button--primary button--small" data-playground-run>تشغيل</button>
+              <button type="button" class="button button--ghost button--small" data-playground-reset>إعادة الكود الأصلي</button>
+              <label class="choice choice--small"><input type="checkbox" data-playground-live> تحديث تلقائي</label>
+            </div>
+          </div>
+
+          <div class="playground__pane">
+            <p class="playground__label" id="playground-preview-label">المعاينة</p>
+            <iframe class="playground__preview" title="معاينة ملعب الأكواد" sandbox="" data-playground-output aria-labelledby="playground-preview-label"></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         QUIZ
+         Each question is a <fieldset> of radio buttons. The correct answer is
+         stored in data-answer. Yes, a curious learner can read it in the
+         source. If you found it that way, you already learned something.
+         ====================================================================== -->
+    <section id="quiz" class="band band--alt" aria-labelledby="quiz-title">
+      <div class="container container--narrow">
+        <header class="section-heading">
+          <p class="eyebrow">اختبر نفسك</p>
+          <h2 id="quiz-title">اختبار قصير</h2>
+          <p>خمسة أسئلة سريعة عن الساعة الأولى.</p>
+        </header>
+
+        <form class="quiz" data-quiz>
+          <fieldset class="quiz__question" data-answer="b">
+            <legend>1. ما الوسم الذي يجب أن يظهر مرة واحدة فقط في كل صفحة؟</legend>
+            <label class="choice"><input type="radio" name="q1" value="a"> section</label>
+            <label class="choice"><input type="radio" name="q1" value="b"> main</label>
+            <label class="choice"><input type="radio" name="q1" value="c"> article</label>
+          </fieldset>
+
+          <fieldset class="quiz__question" data-answer="c">
+            <legend>2. ماذا تفعل السمة rel="noopener" في الروابط؟</legend>
+            <label class="choice"><input type="radio" name="q2" value="a"> تفتح الرابط في تبويب جديد</label>
+            <label class="choice"><input type="radio" name="q2" value="b"> تجعل الرابط أسرع</label>
+            <label class="choice"><input type="radio" name="q2" value="c"> تمنع الصفحة الجديدة من التحكم في صفحتنا</label>
+          </fieldset>
+
+          <fieldset class="quiz__question" data-answer="a">
+            <legend>3. متى نكتب alt فارغاً؟</legend>
+            <label class="choice"><input type="radio" name="q3" value="a"> عندما تكون الصورة للزينة فقط</label>
+            <label class="choice"><input type="radio" name="q3" value="b"> عندما نكون مستعجلين</label>
+            <label class="choice"><input type="radio" name="q3" value="c"> لا نكتبه فارغاً أبداً</label>
+          </fieldset>
+
+          <fieldset class="quiz__question" data-answer="b">
+            <legend>4. أي سمة تدمج خليتين أفقياً في الجدول؟</legend>
+            <label class="choice"><input type="radio" name="q4" value="a"> rowspan</label>
+            <label class="choice"><input type="radio" name="q4" value="b"> colspan</label>
+            <label class="choice"><input type="radio" name="q4" value="c"> merge</label>
+          </fieldset>
+
+          <fieldset class="quiz__question" data-answer="c">
+            <legend>5. أين نضع وسوم Open Graph؟</legend>
+            <label class="choice"><input type="radio" name="q5" value="a"> في نهاية body</label>
+            <label class="choice"><input type="radio" name="q5" value="b"> داخل footer</label>
+            <label class="choice"><input type="radio" name="q5" value="c"> داخل head</label>
+          </fieldset>
+
+          <div class="form__actions">
+            <button type="submit" class="button button--primary">تحقق من إجاباتي</button>
+            <button type="reset" class="button button--ghost">ابدأ من جديد</button>
+          </div>
+
+          <!-- <output> is the semantic home for a calculated result. -->
+          <output class="quiz__result" aria-live="polite" data-quiz-result></output>
+        </form>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         FINAL CHALLENGE · PROFILE CARD
+         Your homework: copy this section into a new file and make it yours.
+         ====================================================================== -->
+    <section id="profile" class="band" aria-labelledby="profile-title">
+      <div class="container container--narrow">
+        <header class="section-heading">
+          <p class="eyebrow">التحدي النهائي</p>
+          <h2 id="profile-title">بطاقتي الشخصية</h2>
+          <p>اجمع كل ما تعلمته في بطاقة واحدة: صورة وعناوين وقائمة وجدول وروابط.</p>
+        </header>
+
+        <article class="profile-card" aria-labelledby="profile-name">
+          <header class="profile-card__header">
+            <img class="profile-card__avatar" src="assets/images/avatar.svg" alt="صورة رمزية لمحمد فهد" width="120" height="120" loading="lazy">
+            <div>
+              <h3 id="profile-name" class="profile-card__name">محمد فهد</h3>
+              <p class="profile-card__role">مطوّر ويب مبتدئ</p>
+            </div>
+          </header>
+
+          <h4>نبذة عنّي</h4>
+          <p>أتعلم تطوير الويب مع <strong>freeCodeCamp</strong>، وهدفي بناء أول موقع خلال شهر.</p>
+
+          <h4>مهاراتي</h4>
+          <ul class="tag-list">
+            <li>HTML</li>
+            <li>التصميم الدلالي</li>
+            <li>استخدام Git</li>
+          </ul>
+
+          <h4>خطة تعلّمي</h4>
+          <div class="table-wrap">
+            <table class="data-table data-table--compact">
+              <caption class="visually-hidden">خطة التعلم الأسبوعية</caption>
+              <thead>
+                <tr>
+                  <th scope="col">الأسبوع</th>
+                  <th scope="col">الموضوع</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>1</td><td>HTML</td></tr>
+                <tr><td>2</td><td>CSS</td></tr>
+                <tr><td>3</td><td>JavaScript</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <footer class="profile-card__footer">
+            <a class="button button--small" href="https://github.com/MOHAMMEDFAHD" target="_blank" rel="noopener noreferrer">حسابي على GitHub</a>
+            <a class="button button--ghost button--small" href="mailto:me@example.com">راسلني</a>
+          </footer>
+        </article>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ========================================================================
+       SITE FOOTER
+       The footer of the whole site. Several columns of links, contact info,
+       and the copyright line. main.js fills in the current year so you never
+       have to edit it by hand again in January.
+       ======================================================================== -->
+  <footer class="site-footer" id="contact">
+    <div class="container site-footer__grid">
+
+      <section class="site-footer__col" aria-labelledby="footer-about">
+        <h2 id="footer-about" class="site-footer__title">عن المعسكر</h2>
+        <p>معسكر مجاني لتطوير الواجهات الأمامية باللغة العربية، يقدّمه مجتمع freeCodeCamp العربي. الكود مفتوح المصدر ويمكنك استخدامه في تعلّمك وتدريسك.</p>
+      </section>
+
+      <nav class="site-footer__col" aria-labelledby="footer-lessons">
+        <h2 id="footer-lessons" class="site-footer__title">الدروس</h2>
+        <ul class="site-footer__list">
+          <li><a href="#intro">ما هي HTML؟</a></li>
+          <li><a href="#links">الروابط</a></li>
+          <li><a href="#forms">النماذج</a></li>
+          <li><a href="#semantic">HTML الدلالي</a></li>
+          <li><a href="#seo">الوسوم الوصفية</a></li>
+        </ul>
+      </nav>
+
+      <nav class="site-footer__col" aria-labelledby="footer-resources">
+        <h2 id="footer-resources" class="site-footer__title">مصادر</h2>
+        <ul class="site-footer__list">
+          <li><a href="https://www.freecodecamp.org/arabic" target="_blank" rel="noopener noreferrer">freeCodeCamp بالعربية</a></li>
+          <li><a href="https://developer.mozilla.org/ar/" target="_blank" rel="noopener noreferrer">توثيق MDN</a></li>
+          <li><a href="https://validator.w3.org/" target="_blank" rel="noopener noreferrer">مدقق W3C</a></li>
+          <li><a href="https://github.com/MOHAMMEDFAHD/frontend-bootcamp" target="_blank" rel="noopener noreferrer">كود المشروع على GitHub</a></li>
+        </ul>
+      </nav>
+
+      <section class="site-footer__col" aria-labelledby="footer-contact">
+        <h2 id="footer-contact" class="site-footer__title">تواصل معنا</h2>
+        <address class="site-footer__address">
+          <a href="mailto:me@example.com">me@example.com</a><br>
+          <a href="https://github.com/MOHAMMEDFAHD" target="_blank" rel="noopener noreferrer">حسابي على GitHub</a>
+        </address>
+      </section>
+    </div>
+
+    <div class="container site-footer__bottom">
+      <!-- <small> is the right tag for legal fine print. -->
+      <p><small>&copy; <span data-year>2026</span> مجتمع freeCodeCamp العربي. الكود متاح تحت رخصة MIT.</small></p>
+      <p><a href="#top">العودة إلى الأعلى</a></p>
+    </div>
+  </footer>
+
+  <!-- ========================================================================
+       FLOATING AND HIDDEN PIECES
+       These sit outside main because they are not page content.
+       ======================================================================== -->
+
+  <!-- Back-to-top button. It stays hidden until you scroll down a bit. -->
+  <button type="button" class="back-to-top" data-back-to-top aria-label="العودة إلى أعلى الصفحة">
+    <span aria-hidden="true">أعلى</span>
+  </button>
+
+  <!-- Toast messages appear here. aria-live="polite" makes screen readers
+       announce new messages without interrupting what they are reading. -->
+  <div class="toast-region" aria-live="polite" aria-atomic="true" data-toast-region></div>
+
+  <!-- A native dialog, opened by the button in lesson 11. -->
+  <dialog class="dialog" id="info-dialog" aria-labelledby="info-dialog-title">
+    <form method="dialog" class="dialog__inner">
+      <h2 id="info-dialog-title" class="dialog__title">مرحباً من داخل dialog</h2>
+      <p>هذه النافذة عنصر HTML أصلي. اضغط <kbd>Esc</kbd> أو زر الإغلاق للخروج.</p>
+      <p>لاحظ أن الزر داخل <code>form method="dialog"</code> يغلق النافذة بدون أي سطر JavaScript.</p>
+      <div class="dialog__actions">
+        <button type="submit" class="button button--primary button--small" value="close">إغلاق</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- The dialog that shows the registration summary after a valid submit. -->
+  <dialog class="dialog" id="form-dialog" aria-labelledby="form-dialog-title">
+    <div class="dialog__inner">
+      <h2 id="form-dialog-title" class="dialog__title">تم استلام تسجيلك</h2>
+      <p>هذه البيانات لم تُرسل إلى أي خادم. هي فقط ما جمعه النموذج:</p>
+      <dl class="summary-list" data-form-summary></dl>
+      <div class="dialog__actions">
+        <button type="button" class="button button--primary button--small" data-dialog-close>حسناً</button>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- noscript content only appears when JavaScript is turned off. -->
+  <noscript>
+    <p class="noscript-note">بعض الميزات التفاعلية تحتاج JavaScript، لكن كل المحتوى متاح للقراءة بدونها.</p>
+  </noscript>
+
+</body>
+</html>

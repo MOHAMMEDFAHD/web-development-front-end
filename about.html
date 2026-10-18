@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<!--
+  ==========================================================================
+  Front-End Bootcamp · About page (about.html)
+  --------------------------------------------------------------------------
+  The second page of the project. Its job in the bootcamp is to show that a
+  real site is more than one page: the header, the footer, the stylesheet
+  and the script are all SHARED. Change style.css once, and both pages
+  update together. That is the whole point of keeping CSS and JS in their
+  own files.
+
+  The head below follows the same order as index.html. I only added short
+  comments here, the long explanations live in index.html, lesson 13.
+  ==========================================================================
+-->
+<html lang="ar" dir="rtl" class="no-js">
+
+<head>
+  <!-- Essentials -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <!-- Every page needs its OWN title and description. Copy-pasting the home
+       page values onto every page is one of the most common SEO mistakes. -->
+  <title>من نحن | معسكر تطوير الواجهات الأمامية</title>
+  <meta name="description" content="تعرّف على معسكر تطوير الواجهات الأمامية من مجتمع freeCodeCamp العربي: رسالتنا، ولمن صُمّم المعسكر، وخطة الأسابيع الثمانية، والمدرّب، وقيم المجتمع.">
+  <meta name="author" content="Mohammed Fahd Abrah">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <link rel="canonical" href="https://mohammedfahd.github.io/frontend-bootcamp/about.html">
+
+  <!-- Open Graph. og:type "profile" or "website" both work for an about page. -->
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ar_AR">
+  <meta property="og:site_name" content="معسكر تطوير الواجهات الأمامية">
+  <meta property="og:title" content="من نحن | معسكر تطوير الواجهات الأمامية">
+  <meta property="og:description" content="رسالتنا وخطة المعسكر والمدرّب وقيم مجتمع freeCodeCamp العربي.">
+  <meta property="og:url" content="https://mohammedfahd.github.io/frontend-bootcamp/about.html">
+  <meta property="og:image" content="https://mohammedfahd.github.io/frontend-bootcamp/assets/images/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="شعار معسكر تطوير الواجهات الأمامية">
+
+  <!-- Twitter / X -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="من نحن | معسكر تطوير الواجهات الأمامية">
+  <meta name="twitter:description" content="رسالتنا وخطة المعسكر والمدرّب وقيم المجتمع.">
+  <meta name="twitter:image" content="https://mohammedfahd.github.io/frontend-bootcamp/assets/images/og-image.png">
+  <meta name="twitter:image:alt" content="شعار معسكر تطوير الواجهات الأمامية">
+
+  <!-- Appearance -->
+  <meta name="theme-color" content="#f5f6f7" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0a0a23" media="(prefers-color-scheme: dark)">
+  <meta name="color-scheme" content="light dark">
+  <meta name="format-detection" content="telephone=no">
+  <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png">
+  <link rel="manifest" href="site.webmanifest">
+
+  <!-- Fonts and our shared stylesheet -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;700&amp;family=JetBrains+Mono:wght@400;600&amp;display=swap">
+  <link rel="stylesheet" href="assets/css/style.css">
+
+  <!-- Same no-flash theme script as index.html. It has to be inline and
+       in the head on every page, that is the only way it runs early enough. -->
+  <script>
+    (function () {
+      var root = document.documentElement;
+      root.className = root.className.replace('no-js', 'js');
+      try {
+        var saved = localStorage.getItem('feb-theme');
+        var dark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        root.setAttribute('data-theme', saved || (dark ? 'dark' : 'light'));
+      } catch (error) {
+        root.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
+  <script src="assets/js/main.js" defer></script>
+
+  <!-- Structured data. "@graph" lets one script describe several things at
+       once: the page itself, the breadcrumb trail, and the instructor. -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "AboutPage",
+        "name": "من نحن",
+        "url": "https://mohammedfahd.github.io/frontend-bootcamp/about.html",
+        "inLanguage": "ar"
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "الرئيسية", "item": "https://mohammedfahd.github.io/frontend-bootcamp/" },
+          { "@type": "ListItem", "position": 2, "name": "من نحن", "item": "https://mohammedfahd.github.io/frontend-bootcamp/about.html" }
+        ]
+      },
+      {
+        "@type": "Person",
+        "name": "Mohammed Fahd Abrah",
+        "jobTitle": "AI Engineer and Technical Educator",
+        "sameAs": ["https://github.com/MOHAMMEDFAHD"]
+      }
+    ]
+  }
+  </script>
+</head>
+
+<body id="top">
+
+  <a class="skip-link" href="#main-content">انتقل إلى المحتوى الرئيسي</a>
+
+  <div class="scroll-progress" aria-hidden="true">
+    <span class="scroll-progress__bar" data-scroll-progress></span>
+  </div>
+
+  <!-- ========================================================================
+       SITE HEADER
+       Identical to the header in index.html, except for which link carries
+       aria-current="page". In the CSS and JS lessons we will talk about how
+       real projects avoid copying this by hand (templates and components).
+       ======================================================================== -->
+  <header class="site-header" data-site-header>
+    <div class="container site-header__inner">
+      <a class="brand" href="index.html" aria-label="معسكر الواجهات الأمامية، الصفحة الرئيسية">
+        <img class="brand__logo" src="assets/images/logo.svg" alt="" width="40" height="40">
+        <span class="brand__text">
+          <span class="brand__name">معسكر الواجهات</span>
+          <span class="brand__tagline">مجتمع freeCodeCamp العربي</span>
+        </span>
+      </a>
+
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" data-nav-toggle>
+        <span class="nav-toggle__bars" aria-hidden="true"></span>
+        <span class="nav-toggle__label">القائمة</span>
+      </button>
+
+      <nav class="site-nav" id="site-nav" aria-label="التنقل الرئيسي" data-site-nav>
+        <ul class="site-nav__list">
+          <li><a class="site-nav__link" href="index.html">الرئيسية</a></li>
+          <li><a class="site-nav__link" href="index.html#lessons">الدروس</a></li>
+          <li><a class="site-nav__link" href="index.html#playground">ملعب الأكواد</a></li>
+          <li><a class="site-nav__link" href="index.html#quiz">الاختبار</a></li>
+          <li><a class="site-nav__link" href="index.html#profile">التحدي</a></li>
+          <li><a class="site-nav__link" href="about.html" aria-current="page">من نحن</a></li>
+        </ul>
+        <button class="theme-toggle" type="button" aria-pressed="false" data-theme-toggle>
+          <span class="theme-toggle__track" aria-hidden="true"><span class="theme-toggle__thumb"></span></span>
+          <span class="theme-toggle__label" data-theme-label>الوضع الداكن</span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content" tabindex="-1">
+
+    <!-- ======================================================================
+         PAGE HERO WITH BREADCRUMBS
+         A breadcrumb trail is an ordered list, because the order matters.
+         The last item is the current page, so it is plain text, not a link.
+         ====================================================================== -->
+    <section class="page-hero" aria-labelledby="about-title">
+      <div class="container">
+        <nav class="breadcrumbs" aria-label="مسار التنقل">
+          <ol>
+            <li><a href="index.html">الرئيسية</a></li>
+            <li aria-current="page">من نحن</li>
+          </ol>
+        </nav>
+
+        <h1 id="about-title" class="page-hero__title">من نحن</h1>
+        <p class="page-hero__lead">
+          نحن مجموعة من المتطوعين في مجتمع freeCodeCamp العربي، نؤمن بأن تعلّم البرمجة
+          حقّ للجميع، وأن أفضل لغة لتعلّمها هي اللغة التي تفكّر بها.
+        </p>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         MISSION
+         ====================================================================== -->
+    <section class="band" id="mission" aria-labelledby="mission-title" data-reveal>
+      <div class="container split">
+        <div class="split__text">
+          <p class="eyebrow">رسالتنا</p>
+          <h2 id="mission-title">تعليم تقني عربي، مجاني، ومبني على التطبيق</h2>
+          <p>
+            بدأ هذا المعسكر كبثّ مباشر لساعة واحدة عن HTML، ثم كبر ليصبح مساراً كاملاً
+            في تطوير الواجهات الأمامية. كل درس يُشرح ويُكتب أمامك سطراً بسطر، والكود كله
+            منشور على GitHub لتعود إليه متى شئت.
+          </p>
+          <p>
+            نكتب المحتوى بالعربية ونحافظ على المصطلحات الإنجليزية كما هي، لأنك ستقابلها
+            في كل وثيقة ورسالة خطأ وفرصة عمل.
+          </p>
+        </div>
+
+        <!-- The numbers count up when they scroll into view. main.js reads
+             the target from data-count-to. Without JavaScript you simply see
+             the final number, which is what matters. -->
+        <dl class="stats-grid">
+          <div class="stat stat--card">
+            <dt class="stat__label">أسابيع تدريب</dt>
+            <dd class="stat__value" data-count-to="8">8</dd>
+          </div>
+          <div class="stat stat--card">
+            <dt class="stat__label">ساعة محتوى</dt>
+            <dd class="stat__value" data-count-to="40">40</dd>
+          </div>
+          <div class="stat stat--card">
+            <dt class="stat__label">مشاريع تطبيقية</dt>
+            <dd class="stat__value" data-count-to="6">6</dd>
+          </div>
+          <div class="stat stat--card">
+            <dt class="stat__label">تكلفة الاشتراك</dt>
+            <dd class="stat__value">0</dd>
+          </div>
+        </dl>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         WHO IS IT FOR
+         Three cards. Each is an <article> because each could stand alone.
+         ====================================================================== -->
+    <section class="band band--alt" id="audience" aria-labelledby="audience-title" data-reveal>
+      <div class="container">
+        <header class="section-heading">
+          <p class="eyebrow">لمن هذا المعسكر؟</p>
+          <h2 id="audience-title">صُمّم لثلاثة أنواع من المتعلمين</h2>
+        </header>
+
+        <div class="card-grid">
+          <article class="card">
+            <h3 class="card__title">المبتدئ تماماً</h3>
+            <p>لم تكتب سطراً برمجياً من قبل؟ ممتاز. نبدأ من فتح المحرر وإنشاء أول ملف.</p>
+          </article>
+          <article class="card">
+            <h3 class="card__title">المتعلم الذاتي التائه</h3>
+            <p>شاهدت عشرات الفيديوهات المتفرقة؟ هنا مسار واحد مرتب من البداية حتى أول مشروع منشور.</p>
+          </article>
+          <article class="card">
+            <h3 class="card__title">المعلّم والمدرّب</h3>
+            <p>الكود مفتوح المصدر ومليء بالتعليقات، استخدمه في فصلك أو ورشتك كما تحب.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         CURRICULUM TIMELINE
+         An ordered list again: the weeks happen in sequence. CSS turns it
+         into a vertical timeline, but the HTML stays a plain, honest list.
+         ====================================================================== -->
+    <section class="band" id="curriculum" aria-labelledby="curriculum-title" data-reveal>
+      <div class="container container--narrow">
+        <header class="section-heading">
+          <p class="eyebrow">الخطة</p>
+          <h2 id="curriculum-title">ثمانية أسابيع من الصفر إلى النشر</h2>
+        </header>
+
+        <ol class="timeline">
+          <li class="timeline__item">
+            <h3 class="timeline__title">الأسبوع 1: أساسيات HTML</h3>
+            <p>الهيكل والنصوص والروابط والصور والقوائم والجداول.</p>
+          </li>
+          <li class="timeline__item">
+            <h3 class="timeline__title">الأسبوع 2: النماذج وHTML الدلالي</h3>
+            <p>النماذج والتحقق والوسائط والوسوم الوصفية وإمكانية الوصول.</p>
+          </li>
+          <li class="timeline__item">
+            <h3 class="timeline__title">الأسبوع 3: أساسيات CSS</h3>
+            <p>المحددات والألوان والخطوط والوحدات والمتغيرات.</p>
+          </li>
+          <li class="timeline__item">
+            <h3 class="timeline__title">الأسبوع 4: نموذج الصندوق وFlexbox</h3>
+            <p>الهوامش والحشو والحدود، ثم ترتيب العناصر في صفوف وأعمدة.</p>
+          </li>
+          <li class="timeline__item">
+            <h3 class="timeline__title">الأسبوع 5: Grid والتصميم المتجاوب</h3>
+            <p>الشبكات واستعلامات الوسائط والتصميم للجوال أولاً.</p>
+          </li>
+          <li class="timeline__item">
+            <h3 class="timeline__title">الأسبوع 6: أساسيات JavaScript</h3>
+            <p>المتغيرات والدوال والشروط والحلقات والمصفوفات والكائنات.</p>
+          </li>
+          <li class="timeline__item">
+            <h3 class="timeline__title">الأسبوع 7: DOM والأحداث</h3>
+            <p>اختيار العناصر وتعديلها والاستجابة للنقر والكتابة، وهي كل ما في main.js.</p>
+          </li>
+          <li class="timeline__item">
+            <h3 class="timeline__title">الأسبوع 8: المشروع النهائي</h3>
+            <p>Fetch والتخزين المحلي، ثم نشر موقعك على GitHub Pages.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         INSTRUCTOR
+         ====================================================================== -->
+    <section class="band band--alt" id="instructor" aria-labelledby="instructor-title" data-reveal>
+      <div class="container container--narrow">
+        <header class="section-heading">
+          <p class="eyebrow">المدرّب</p>
+          <h2 id="instructor-title">من سيرافقك في الرحلة</h2>
+        </header>
+
+        <article class="profile-card profile-card--wide" aria-labelledby="instructor-name">
+          <header class="profile-card__header">
+            <img class="profile-card__avatar" src="assets/images/avatar.svg" alt="صورة رمزية للمدرّب محمد فهد أبره" width="120" height="120" loading="lazy">
+            <div>
+              <h3 id="instructor-name" class="profile-card__name">محمد فهد أبره</h3>
+              <p class="profile-card__role">مهندس ذكاء اصطناعي ومعلّم تقني</p>
+            </div>
+          </header>
+
+          <p>
+            يقود مجتمع freeCodeCamp العربي، وهو عضو في فريق تطوير نظام إدارة المحتوى في freeCodeCamp.
+            يكتب محتوى تعليمياً لـ freeCodeCamp وHashnode، ويحب أن يشرح الأفكار الصعبة بأبسط الكلمات
+            وأوضح الرسوم.
+          </p>
+
+          <ul class="tag-list">
+            <li>تطوير الواجهات</li>
+            <li>الذكاء الاصطناعي</li>
+            <li>تصميم المناهج</li>
+            <li>المحتوى العربي</li>
+          </ul>
+
+          <footer class="profile-card__footer">
+            <a class="button button--small" href="https://github.com/MOHAMMEDFAHD" target="_blank" rel="noopener noreferrer">GitHub</a>
+            <a class="button button--ghost button--small" href="https://www.freecodecamp.org/arabic" target="_blank" rel="noopener noreferrer">freeCodeCamp بالعربية</a>
+          </footer>
+        </article>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         VALUES
+         The registration form on index.html links here (about.html#values),
+         which is a nice example of linking to a section on another page.
+         ====================================================================== -->
+    <section class="band" id="values" aria-labelledby="values-title" data-reveal>
+      <div class="container">
+        <header class="section-heading">
+          <p class="eyebrow">قيم المجتمع</p>
+          <h2 id="values-title">كيف نتعلم معاً</h2>
+        </header>
+
+        <div class="card-grid card-grid--four">
+          <article class="card card--numbered">
+            <p class="card__number">01</p>
+            <h3 class="card__title">اسأل بلا خجل</h3>
+            <p>لا يوجد سؤال غبي. السؤال الذي لم يُطرح هو الذي يؤخرك.</p>
+          </article>
+          <article class="card card--numbered">
+            <p class="card__number">02</p>
+            <h3 class="card__title">ابنِ ثم اقرأ</h3>
+            <p>اكتب الكود بيدك قبل أن تقرأ عنه. الفهم يأتي من الأصابع.</p>
+          </article>
+          <article class="card card--numbered">
+            <p class="card__number">03</p>
+            <h3 class="card__title">احترم الجميع</h3>
+            <p>نختلف في المستويات والخلفيات، ونتفق على اللطف في كل نقاش.</p>
+          </article>
+          <article class="card card--numbered">
+            <p class="card__number">04</p>
+            <h3 class="card__title">شارك ما تعلمته</h3>
+            <p>اشرح لغيرك ما فهمته اليوم، فالتعليم أسرع طريق للإتقان.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         FAQ
+         Built with details/summary, so it works even with JavaScript off.
+         ====================================================================== -->
+    <section class="band band--alt" id="faq" aria-labelledby="faq-title" data-reveal>
+      <div class="container container--narrow">
+        <header class="section-heading">
+          <p class="eyebrow">أسئلة متكررة</p>
+          <h2 id="faq-title">قبل أن تبدأ</h2>
+        </header>
+
+        <div class="accordion-tools">
+          <button type="button" class="link-button" data-accordion-toggle="faq-list">فتح الكل / إغلاق الكل</button>
+        </div>
+
+        <div class="accordion" id="faq-list">
+          <details class="accordion__item">
+            <summary>هل المعسكر مجاني فعلاً؟</summary>
+            <p>نعم، بالكامل. لا اشتراك ولا رسوم مخفية، والكود متاح تحت رخصة MIT.</p>
+          </details>
+          <details class="accordion__item">
+            <summary>هل أحتاج جهازاً قوياً؟</summary>
+            <p>لا. أي حاسوب يشغّل متصفحاً حديثاً ومحرر VS Code يكفي تماماً.</p>
+          </details>
+          <details class="accordion__item">
+            <summary>هل أحصل على شهادة؟</summary>
+            <p>يمكنك الحصول على شهادات freeCodeCamp الرسمية بعد إكمال المشاريع المطلوبة على المنصة.</p>
+          </details>
+          <details class="accordion__item">
+            <summary>لماذا JavaScript خالصة وليس React؟</summary>
+            <p>لأن كل إطار عمل مبني فوقها. من يفهم JavaScript جيداً يتعلم أي إطار في أيام.</p>
+          </details>
+          <details class="accordion__item">
+            <summary>كيف أطرح سؤالاً أثناء المعسكر؟</summary>
+            <p>في تعليقات البث المباشر، أو بفتح Issue في مستودع المشروع على GitHub.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         CALL TO ACTION
+         A tiny one-field form. Same validation module as index.html, which
+         shows how one script can serve many pages through data attributes.
+         ====================================================================== -->
+    <section class="band cta" id="join" aria-labelledby="join-title" data-reveal>
+      <div class="container container--narrow cta__inner">
+        <h2 id="join-title">جاهز للبدء؟</h2>
+        <p>اترك بريدك لنرسل لك موعد كل بث جديد. لن نرسل أي شيء آخر.</p>
+
+        <form class="cta__form" action="#" method="post" data-validate data-simple-form>
+          <div class="field">
+            <label for="newsletter-email" class="visually-hidden">بريدك الإلكتروني</label>
+            <input id="newsletter-email" name="email" type="email" class="input" placeholder="you@example.com" required autocomplete="email" dir="ltr" aria-describedby="newsletter-email-error">
+            <p class="field__error" id="newsletter-email-error" aria-live="polite"></p>
+          </div>
+          <button type="submit" class="button button--primary">أبلغني</button>
+        </form>
+
+        <p><a href="index.html#lessons">أو ابدأ الدرس الأول الآن</a></p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ========================================================================
+       SITE FOOTER (shared with index.html)
+       Links that point at sections of the home page use index.html#id.
+       ======================================================================== -->
+  <footer class="site-footer" id="contact">
+    <div class="container site-footer__grid">
+      <section class="site-footer__col" aria-labelledby="footer-about">
+        <h2 id="footer-about" class="site-footer__title">عن المعسكر</h2>
+        <p>معسكر مجاني لتطوير الواجهات الأمامية باللغة العربية، يقدّمه مجتمع freeCodeCamp العربي. الكود مفتوح المصدر ويمكنك استخدامه في تعلّمك وتدريسك.</p>
+      </section>
+
+      <nav class="site-footer__col" aria-labelledby="footer-lessons">
+        <h2 id="footer-lessons" class="site-footer__title">الدروس</h2>
+        <ul class="site-footer__list">
+          <li><a href="index.html#intro">ما هي HTML؟</a></li>
+          <li><a href="index.html#links">الروابط</a></li>
+          <li><a href="index.html#forms">النماذج</a></li>
+          <li><a href="index.html#semantic">HTML الدلالي</a></li>
+          <li><a href="index.html#seo">الوسوم الوصفية</a></li>
+        </ul>
+      </nav>
+
+      <nav class="site-footer__col" aria-labelledby="footer-resources">
+        <h2 id="footer-resources" class="site-footer__title">مصادر</h2>
+        <ul class="site-footer__list">
+          <li><a href="https://www.freecodecamp.org/arabic" target="_blank" rel="noopener noreferrer">freeCodeCamp بالعربية</a></li>
+          <li><a href="https://developer.mozilla.org/ar/" target="_blank" rel="noopener noreferrer">توثيق MDN</a></li>
+          <li><a href="https://validator.w3.org/" target="_blank" rel="noopener noreferrer">مدقق W3C</a></li>
+          <li><a href="https://github.com/MOHAMMEDFAHD/frontend-bootcamp" target="_blank" rel="noopener noreferrer">كود المشروع على GitHub</a></li>
+        </ul>
+      </nav>
+
+      <section class="site-footer__col" aria-labelledby="footer-contact">
+        <h2 id="footer-contact" class="site-footer__title">تواصل معنا</h2>
+        <address class="site-footer__address">
+          <a href="mailto:me@example.com">me@example.com</a><br>
+          <a href="https://github.com/MOHAMMEDFAHD" target="_blank" rel="noopener noreferrer">حسابي على GitHub</a>
+        </address>
+      </section>
+    </div>
+
+    <div class="container site-footer__bottom">
+      <p><small>&copy; <span data-year>2026</span> مجتمع freeCodeCamp العربي. الكود متاح تحت رخصة MIT.</small></p>
+      <p><a href="#top">العودة إلى الأعلى</a></p>
+    </div>
+  </footer>
+
+  <button type="button" class="back-to-top" data-back-to-top aria-label="العودة إلى أعلى الصفحة">
+    <span aria-hidden="true">أعلى</span>
+  </button>
+
+  <div class="toast-region" aria-live="polite" aria-atomic="true" data-toast-region></div>
+
+  <noscript>
+    <p class="noscript-note">بعض الميزات التفاعلية تحتاج JavaScript، لكن كل المحتوى متاح للقراءة بدونها.</p>
+  </noscript>
+
+</body>
+</html>

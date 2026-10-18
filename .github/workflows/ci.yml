@@ -1,0 +1,115 @@
+# ==========================================================================
+# Continuous Integration for the Front-End Bootcamp
+# --------------------------------------------------------------------------
+# What happens, in plain words:
+#
+#   1. lint    Every push and pull request is checked by three linters:
+#              html-validate, Stylelint and ESLint. If any of them finds a
+#              problem, the run turns red and tells you the file and line.
+#
+#   2. links   Lychee opens every link in the HTML and Markdown files and
+#              reports the broken ones. It also runs every Monday morning,
+#              because links on the internet die even when our code doesn't.
+#
+#   3. deploy  When lint passes on the main branch, the site is published
+#              to GitHub Pages. Pull requests are checked but never deployed.
+#
+# One-time setup: in the repository go to Settings > Pages and set
+# "Source" to "GitHub Actions". That's it.
+# ==========================================================================
+
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    - cron: "0 6 * * 1"   # Mondays at 06:00 UTC, link check only
+  workflow_dispatch:       # adds a "Run workflow" button in the Actions tab
+
+# Least privilege by default. The deploy job asks for more on its own.
+permissions:
+  contents: read
+
+# If you push twice quickly, cancel the older run instead of queueing it.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    name: Lint HTML, CSS and JS
+    if: github.event_name != 'schedule'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      # npm ci installs exactly what package-lock.json says. Faster and
+      # more predictable than npm install on a build server.
+      - name: Install dev tools
+        run: npm ci
+
+      - name: Validate HTML
+        run: npm run lint:html
+
+      - name: Lint CSS
+        run: npm run lint:css
+
+      - name: Lint JavaScript
+        run: npm run lint:js
+
+  links:
+    name: Check links
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the code
+        uses: actions/checkout@v4
+
+      - name: Run Lychee
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: --config lychee.toml --no-progress "./*.html" "./*.md" "./docs/*.md"
+          fail: true
+
+  deploy:
+    name: Deploy to GitHub Pages
+    needs: lint
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write      # to publish the site
+      id-token: write   # to prove to Pages that this run is really ours
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Check out the code
+        uses: actions/checkout@v4
+
+      # Only the files a visitor needs go online. Docs, configs and
+      # node_modules stay in the repository.
+      - name: Collect the public files
+        run: |
+          mkdir _site
+          cp index.html about.html 404.html robots.txt sitemap.xml site.webmanifest _site/
+          cp -r assets _site/
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload the site
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+      - name: Publish
+        id: deployment
+        uses: actions/deploy-pages@v4

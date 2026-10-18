@@ -1,0 +1,15 @@
+# Dependabot opens a pull request when a newer version of an action or a
+# dev tool is released. Once a month is plenty for a learning project.
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: monthly
+    groups:
+      linters:
+        patterns: ["*"]
